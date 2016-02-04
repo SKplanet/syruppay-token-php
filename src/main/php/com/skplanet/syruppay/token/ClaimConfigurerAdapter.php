@@ -18,7 +18,10 @@ abstract class ClaimConfigurerAdapter implements ClaimConfigurer
 
     public function next()
     {
-        return $this->getBuilder();
+        $builder = new SyrupPayTokenBuilder();
+        $builder = $this->getBuilder();
+
+        return $builder;
     }
 
     protected function getBuilder()
