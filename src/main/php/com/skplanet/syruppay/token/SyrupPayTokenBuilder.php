@@ -71,27 +71,42 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public function login()
     {
-        return $this->getOrApply(new MerchantUserConfigurer());
+        $merchantUserConfigurer = new MerchantUserConfigurer();
+        $this->getOrApply(new MerchantUserConfigurer());
+
+        return $merchantUserConfigurer;
     }
 
     public function signUp()
     {
-        return $this->getOrApply(new MerchantUserConfigurer());
+        $merchantUserConfigurer = new MerchantUserConfigurer();
+        $this->getOrApply($merchantUserConfigurer);
+
+        return $merchantUserConfigurer;
     }
 
     public function pay()
     {
-        return $this->getOrApply(new PayConfigurer());
+        $payConfigurer = new PayConfigurer();
+        $this->getOrApply($payConfigurer);
+
+        return $payConfigurer;
     }
 
     public function checkout()
     {
-        return $this->getOrApply(new OrderConfigurer());
+        $orderConfigurer = new OrderConfigurer();
+        $this->getOrApply($orderConfigurer);
+
+        return $orderConfigurer;
     }
 
     public function mapToSyrupPayUser()
     {
-        return $this->getOrApply(new MapToSyrupPayUserConfigurer());
+        $mapToSyrupPayUserConfigurer = new MapToSyrupPayUserConfigurer();
+        $this->getOrApply($mapToSyrupPayUserConfigurer);
+
+        return $mapToSyrupPayUserConfigurer;
     }
 
     private function getOrApply($configurer)
