@@ -144,9 +144,16 @@ class PayConfigurer extends AbstractTokenConfigurer
         return $this;
     }
 
-    public function withInstallmentPerCardInformation(array $cards)
+    public function withInstallmentPerCardInformation($cards)
     {
-        $this->paymentInfo->setCardInfoList($cards);
+        $cardInfoList = array();
+        if (!is_array($cards) && $cards instanceof CardInstallmentInformation) {
+            $cardInfoList[] = $cards;
+        } else if (is_array($cards)) {
+            $cardInfoList = $cards;
+        }
+
+        $this->paymentInfo->setCardInfoList($cardInfoList);
         return $this;
     }
 
