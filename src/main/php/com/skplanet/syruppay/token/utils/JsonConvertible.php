@@ -6,7 +6,7 @@
  * Time: 오전 11:35
  */
 
-namespace com\skplanet\syruppay\utils;
+namespace com\skplanet\syruppay\token\utils;
 
 abstract class JsonConvertible
 {

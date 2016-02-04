@@ -6,10 +6,10 @@
  * Time: 오후 2:24
  */
 
-namespace com\skplanet\syruppay\claims;
+namespace com\skplanet\syruppay\token\claims;
 
 
-use com\skplanet\syruppay\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
 
 class MerchantUserConfigurer extends AbstractTokenConfigurer
 {

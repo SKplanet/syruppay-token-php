@@ -6,7 +6,7 @@
  * Time: 오후 6:09
  */
 
-namespace com\skplanet\syruppay\utils;
+namespace com\skplanet\syruppay\token\utils;
 
 
 class StringUtils

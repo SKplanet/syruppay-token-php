@@ -6,7 +6,7 @@
  * Time: 오전 9:49
  */
 
-namespace com\skplanet\syruppay\utils;
+namespace com\skplanet\syruppay\token\utils;
 
 
 class UUID

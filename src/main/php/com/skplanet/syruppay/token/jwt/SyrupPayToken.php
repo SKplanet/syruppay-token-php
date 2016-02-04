@@ -6,9 +6,9 @@
  * Time: 오후 5:24
  */
 
-namespace com\skplanet\syruppay\jwt;
+namespace com\skplanet\syruppay\token\jwt;
 
-use com\skplanet\syruppay\claims\PayConfigurer;
+use com\skplanet\syruppay\token\claims\PayConfigurer;
 
 class SyrupPayToken implements Token
 {

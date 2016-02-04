@@ -6,7 +6,7 @@
  * Time: 오후 2:11
  */
 
-namespace com\skplanet\syruppay\claims;
+namespace com\skplanet\syruppay\token\claims;
 
 
 use com\skplanet\syruppay\token\ClaimConfigurerAdapter;

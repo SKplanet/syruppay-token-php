@@ -9,8 +9,8 @@
 namespace com\skplanet\syruppay\token;
 
 
-use com\skplanet\syruppay\utils\ClassPropertyUtils;
-use com\skplanet\syruppay\utils\UUID;
+use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\utils\UUID;
 
 class Jwt
 {

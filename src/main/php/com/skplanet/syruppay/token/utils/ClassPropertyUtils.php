@@ -6,7 +6,7 @@
  * Time: 오후 2:18
  */
 
-namespace com\skplanet\syruppay\utils;
+namespace com\skplanet\syruppay\token\utils;
 
 
 trait ClassPropertyUtils

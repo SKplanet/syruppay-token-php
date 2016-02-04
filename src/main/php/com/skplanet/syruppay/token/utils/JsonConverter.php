@@ -6,7 +6,7 @@
  * Time: 오후 1:07
  */
 
-namespace com\skplanet\syruppay\utils;
+namespace com\skplanet\syruppay\token\utils;
 
 
 trait JsonConverter

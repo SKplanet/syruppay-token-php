@@ -14,11 +14,11 @@ use com\skplanet\jose\JoseBuilders;
 use com\skplanet\jose\JoseHeader;
 use com\skplanet\jose\JoseHeaderSpec;
 use com\skplanet\jose\jwa\Jwa;
-use com\skplanet\syruppay\claims\MapToSyrupPayUserConfigurer;
-use com\skplanet\syruppay\claims\MerchantUserConfigurer;
-use com\skplanet\syruppay\claims\OrderConfigurer;
-use com\skplanet\syruppay\claims\PayConfigurer;
-use com\skplanet\syruppay\jwt\SyrupPayTokenPropertyMapper;
+use com\skplanet\syruppay\token\claims\MapToSyrupPayUserConfigurer;
+use com\skplanet\syruppay\token\claims\MerchantUserConfigurer;
+use com\skplanet\syruppay\token\claims\OrderConfigurer;
+use com\skplanet\syruppay\token\claims\PayConfigurer;
+use com\skplanet\syruppay\token\jwt\SyrupPayTokenPropertyMapper;
 
 class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements ClaimBuilder, TokenBuilder
 {

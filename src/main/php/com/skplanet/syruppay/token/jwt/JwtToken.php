@@ -6,7 +6,7 @@
  * Time: 오후 5:25
  */
 
-namespace com\skplanet\syruppay\jwt;
+namespace com\skplanet\syruppay\token\jwt;
 
 
 interface JwtToken

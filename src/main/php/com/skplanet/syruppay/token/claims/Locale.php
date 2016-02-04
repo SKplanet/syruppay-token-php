@@ -6,7 +6,7 @@
  * Time: 오후 2:39
  */
 
-namespace com\skplanet\syruppay\claims;
+namespace com\skplanet\syruppay\token\claims;
 
 class Locale
 {

@@ -6,9 +6,9 @@
  * Time: 오후 2:31
  */
 
-namespace com\skplanet\syruppay\claims;
+namespace com\skplanet\syruppay\token\claims;
 
-use com\skplanet\syruppay\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
 
 class PayConfigurer extends AbstractTokenConfigurer
 {
