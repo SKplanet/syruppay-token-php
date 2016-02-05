@@ -46,6 +46,8 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         if (self::$checkValidationOfToken && !$syrupPayToken->isValidInTime()) {
             throw new \InvalidArgumentException(sprintf("%d as exp of this token is over at now as %d", $syrupPayToken->getExp(), time()));
         }
+
+        return $syrupPayToken;
     }
 
     public function of($merchantId)
