@@ -44,12 +44,4 @@ trait ClassPropertyUtils
 
         return $propertyMap;
     }
-
-    public function __fromJson(array $jsonDecodedArray, $targetObject)
-    {
-//        $reflectionClass = new ReflectionClass(get_class($targetObject));
-        foreach ($jsonDecodedArray as $propertyName => $value) {
-            $targetObject->{'set'.ucwords($propertyName)}($value);
-        }
-    }
 }
