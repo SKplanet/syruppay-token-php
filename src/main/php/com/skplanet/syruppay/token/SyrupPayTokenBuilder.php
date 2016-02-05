@@ -71,7 +71,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
     public function login()
     {
         $merchantUserConfigurer = new MerchantUserConfigurer();
-        $this->getOrApply(new MerchantUserConfigurer());
+        $this->getOrApply($merchantUserConfigurer);
 
         return $merchantUserConfigurer;
     }
@@ -148,7 +148,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         )->serialization();
     }
 
-    public function toJson()
+    public function toJson($isStdClass = false)
     {
         $propertyArray = array();
 
@@ -168,10 +168,15 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
             }
         }
 
-        return json_encode($propertyArray);
+        $json = json_encode($propertyArray);
+        if ($isStdClass) {
+            return (object) $json;
+        }
+
+        return $json;
     }
 
-    private function fromJson($dest, \stdClass $src)
+    public static function fromJson($dest, \stdClass $src)
     {
         $srcReflection = new \ReflectionObject($src);
         $srcProperties = $srcReflection->getProperties();
