@@ -28,7 +28,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
     private $expiredMinutes = 10;
     private static $checkValidationOfToken = true;
 
-    public function uncheckValidationOfToken()
+    public static function uncheckValidationOfToken()
     {
         SyrupPayTokenBuilder::$checkValidationOfToken = false;
     }
