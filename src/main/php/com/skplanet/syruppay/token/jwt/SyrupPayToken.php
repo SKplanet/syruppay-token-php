@@ -29,8 +29,13 @@ class SyrupPayToken implements Token
      * @var com\skplanet\syruppay\token\claims\PayConfigurer
      */
     private $transactionInfo;
+    /**
+     * @var com\skplanet\syruppay\token\claims\MapToSyrupPayUserConfigurer
+     */
     private $userInfoMapper;
-    private $lineInfo;
+    /**
+     * @var com\skplanet\syruppay\token\claims\OrderConfigurer
+     */
     private $checkoutInfo;
 
     public function getCheckoutInfo()

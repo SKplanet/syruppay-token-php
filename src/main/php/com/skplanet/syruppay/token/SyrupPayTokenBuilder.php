@@ -193,6 +193,10 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
                         continue;
                     }
 
+                    if (empty($className)) {
+                        throw new \InvalidArgumentException("No declared class name. There is annotaion '@var' missing at document comment: $propertyName");
+                    }
+
                     $newClassObject = self::fromJson(new $className(), $propertyValue);
                     self::injectValue($dest, $propertyName, $newClassObject);
                 } else if (is_array($propertyValue)) {  //custom class list or primitive list
