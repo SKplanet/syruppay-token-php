@@ -9,6 +9,7 @@
 namespace com\skplanet\syruppay\token\claims;
 
 
+use com\skplanet\syruppay\token\claims\elements\ProductDeliveryInfo;
 use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
 
 class OrderConfigurer extends AbstractTokenConfigurer
@@ -20,15 +21,15 @@ class OrderConfigurer extends AbstractTokenConfigurer
     private $privacyPolicyRequirements;
     private $mainShippingAddressSettingDisabled;
     /**
-     * @var com\skplanet\syruppay\token\claims\ProductDeliveryInfo
+     * @var com\skplanet\syruppay\token\claims\elements\ProductDeliveryInfo
      */
     private $productDeliveryInfo;
     /**
-     * @var com\skplanet\syruppay\token\claims\Offer
+     * @var com\skplanet\syruppay\token\claims\elements\Offer
      */
     private $offerList = array();
     /**
-     * @var com\skplanet\syruppay\token\claims\Loyalty
+     * @var com\skplanet\syruppay\token\claims\elements\Loyalty
      */
     private $loyaltyList = array();
     /**
@@ -36,7 +37,7 @@ class OrderConfigurer extends AbstractTokenConfigurer
      */
     private $shippingAddressList = array();
     /**
-     * @var com\skplanet\syruppay\token\claims\MonthlyInstallment
+     * @var com\skplanet\syruppay\token\claims\elements\MonthlyInstallment
      */
     private $monthlyInstallmentList = array();
 

@@ -27,6 +27,9 @@ class Loyalty implements Element
      * @var com\skplanet\syruppay\token\claims\elements\AdditionalDiscount
      */
     private $additionalDiscount;
+    /**
+     * @var com\skplanet\syruppay\token\claims\elements\Error
+     */
     private $error;
     private $exclusiveGroupId;
     private $exclusiveGroupName;
