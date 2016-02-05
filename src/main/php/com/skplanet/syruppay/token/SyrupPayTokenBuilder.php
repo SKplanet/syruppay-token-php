@@ -42,7 +42,10 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
             ->key($key)
         )->deserialization();
 
-        return self::fromJson(new SyrupPayToken(), json_decode($payload));
+        $syrupPayToken = self::fromJson(new SyrupPayToken(), json_decode($payload));
+        if (self::$checkValidationOfToken && !$syrupPayToken->isValidInTime()) {
+            throw new \InvalidArgumentException(sprintf("%d as exp of this token is over at now as %d", $syrupPayToken->getExp(), time()));
+        }
     }
 
     public function of($merchantId)
@@ -148,7 +151,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         )->serialization();
     }
 
-    public function toJson($isStdClass = false)
+    public function toJson()
     {
         $propertyArray = array();
 
@@ -168,12 +171,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
             }
         }
 
-        $json = json_encode($propertyArray);
-        if ($isStdClass) {
-            return (object) $json;
-        }
-
-        return $json;
+        return json_encode($propertyArray);
     }
 
     public static function fromJson($dest, \stdClass $src)

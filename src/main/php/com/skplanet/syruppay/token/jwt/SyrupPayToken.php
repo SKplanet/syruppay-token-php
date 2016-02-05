@@ -18,7 +18,7 @@ class SyrupPayToken implements Token
     private $exp;
     private $iat;
     private $jti;
-    private $nbf;
+    private $nbf = 0;
     private $sub;
 
     /**
@@ -40,7 +40,8 @@ class SyrupPayToken implements Token
 
     public function isValidInTime()
     {
-        return (!isset($this->nbf) || $this->nbf < 0 || time() < $this->nbf) && time() > $this->exp;
+        $current = time();
+        return ($this->nbf <= 0 || $current > $this->nbf) && $current < $this->exp;
     }
 
     public function getAud()
