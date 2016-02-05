@@ -17,6 +17,9 @@ class TransactionAuthenticationValue
     private $cardToken;
     private $mctTransAuthId;
     private $ocTransAuthId;
+    /**
+     * @var com\skplanet\syruppay\token\tav\PaymentAuthenticationDetail
+     */
     private $paymentAuthenticationDetail;
 
     public function getCardToken()
