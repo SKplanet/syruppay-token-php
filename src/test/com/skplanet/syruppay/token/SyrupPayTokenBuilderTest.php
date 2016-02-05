@@ -11,6 +11,16 @@ namespace com\skplanet\syruppay\token;
 
 use com\skplanet\syruppay\token\claims\CardInstallmentInformation;
 use com\skplanet\syruppay\token\claims\Currency;
+use com\skplanet\syruppay\token\claims\DeliveryRestriction;
+use com\skplanet\syruppay\token\claims\elements\AdditionalDiscount;
+use com\skplanet\syruppay\token\claims\elements\DeliveryType;
+use com\skplanet\syruppay\token\claims\elements\Error;
+use com\skplanet\syruppay\token\claims\elements\ErrorType;
+use com\skplanet\syruppay\token\claims\elements\Loyalty;
+use com\skplanet\syruppay\token\claims\elements\LoyaltyId;
+use com\skplanet\syruppay\token\claims\elements\Offer;
+use com\skplanet\syruppay\token\claims\elements\OfferType;
+use com\skplanet\syruppay\token\claims\elements\ProductDeliveryInfo;
 use com\skplanet\syruppay\token\claims\Language;
 use com\skplanet\syruppay\token\claims\MappingType;
 use com\skplanet\syruppay\token\claims\PayableLocaleRule;
@@ -522,5 +532,89 @@ class SyrupPayTokenBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("가맹점", $token->getIss());
         $this->assertNotNull($token->getUserInfoMapper());
         $this->assertEquals('asdkfjhsakdfj', $token->getUserInfoMapper()->getMappingValue());
+    }
+}
+
+class Mocks
+{
+    public static $offerList = array();
+    public static $loyalList = array();
+    public static $shippingAddressList = array();
+    public static $productDeliveryInfoList = array();
+
+    public static function getOfferList()
+    {
+        $offer = new Offer();
+        self::$offerList[] = $offer->setId("Offer-01")->setName("기본할인")->setAmountOff(1000)->setUserSelectable(false)->setOrderApplied(1);
+        $offer = new Offer();
+        self::$offerList[] = $offer->setId("Offer-02")->setName("복수구매할인")->setAmountOff(500)->setUserSelectable(false)->setOrderApplied(2);
+        $offer = new Offer();
+        self::$offerList[] = $offer->setId("Offer-03")->setName("추가할인")->setAmountOff(300)->setUserSelectable(false)->setOrderApplied(3);
+        $offer = new Offer();
+        self::$offerList[] = $offer->setId("Offer-04")->setName("보너스할인")->setAmountOff(700)->setUserSelectable(false)->setOrderApplied(4);
+        $offer = new Offer();
+        self::$offerList[] = $offer->setId("Offer-05")->setName("임직원할인")->setAmountOff(100)->setUserSelectable(false)->setOrderApplied(5);
+        $offer = new Offer();
+        self::$offerList[] = $offer->setId("Offer-06")->setName("카드사할인")->setAmountOff(1000)->setUserSelectable(true)->setOrderApplied(6);
+        $offer = new Offer();
+        self::$offerList[] = $offer->setId("Offer-07")->setName("플러스쿠폰")->setAmountOff(500)->setUserSelectable(true)->setOrderApplied(7);
+        $offer = new Offer();
+        self::$offerList[] = $offer->setId("Offer-08")->setType(OfferType::DELIVERY_COUPON)->setName("배송비쿠폰")->setAmountOff(2500)->setUserSelectable(true)->setOrderApplied(8);
+    }
+
+    public static function getLoyalList()
+    {
+        $loyalty = new Loyalty();
+        self::$loyalList[] = $loyalty->setIdBy(LoyaltyId::MILEAGE_OF_11ST)->setName("마일리지")->setSubscriberId("Loyalty-Sub-Id-02")->setBalance(10000)->setMaxApplicableAmt(3000)->setInitialAppliedAmt(500)->setOrderApplied(1);
+        $loyalty = new Loyalty();
+        self::$loyalList[] = $loyalty->setIdBy(LoyaltyId::T_MEMBERSHIP)->setName("T멤버쉽")->setSubscriberId("Loyalty-Sub-Id-03")->setBalance(10000)->setMaxApplicableAmt(3000)->setInitialAppliedAmt(500)->setOrderApplied(2);
+        $loyalty = new Loyalty();
+        self::$loyalList[] = $loyalty->setIdBy(LoyaltyId::POINT_OF_11ST)->setName("포인트")->setSubscriberId("Loyalty-Sub-Id-04")->setBalance(10000)->setMaxApplicableAmt(3000)->setInitialAppliedAmt(1000)->setOrderApplied(3);
+        $loyalty = new Loyalty();
+        self::$loyalList[] = $loyalty->setIdBy(LoyaltyId::OK_CASHBAG)->setName("OK캐쉬백")->setSubscriberId("Loyalty-Sub-Id-05")->setBalance(10000)->setMaxApplicableAmt(3000)->setInitialAppliedAmt(10)->setOrderApplied(4);
+
+        $error = new Error();
+        $error->setType(ErrorType::MAINTENACE)->setDescription("T멤버쉽이 정기점검중이므로 일시적으로 서비스를 이용할 수 없습니다-> 잠시 후에 다시 이용해 주세요->");
+
+        $errorLoyalty = new Loyalty();
+        $errorLoyalty->setIdBy(LoyaltyId::T_MEMBERSHIP)->setName("T멤버쉽-에러상황")->setSubscriberId("Loyalty-Sub-Id-06")->setBalance(10000)->setMaxApplicableAmt(3000)->setInitialAppliedAmt(1000)->setOrderApplied(5);
+        $errorLoyalty->setError($error);
+
+        self::$loyalList[] = $errorLoyalty;
+
+        $additionalDiscount = new AdditionalDiscount();
+        $additionalDiscount->setPercentOff(10)->setMaxApplicableAmt(500);
+
+        $addDiscLoyalty = new Loyalty();
+        $addDiscLoyalty->setIdBy(LoyaltyId::OK_CASHBAG)->setName("OK캐쉬백-추가할인")->setSubscriberId("Loyalty-Sub-Id-01")->setBalance(10000)->setMaxApplicableAmt(3000)->setInitialAppliedAmt(10)->setOrderApplied(6);
+        $addDiscLoyalty->setAdditionalDiscount($additionalDiscount);
+        self::$loyalList[] = $addDiscLoyalty;
+    }
+
+
+    public static function getShippingAddress()
+    {
+        $shippingAddress = new ShippingAddress();
+        self::$shippingAddressList[] = $shippingAddress->setId("Shipping-Address-01")->setName("회사")->setCountryCode("KR")->setZipCode("12345")->setMainAddress("경기도 성남시 분당구 판교로264")->setDetailAddress("더플래닛")->setCity("성남시")->setState("경기도")->setRecipientName("USER")->setRecipientPhoneNumber("01012341234")->setDeliveryRestriction(DeliveryRestriction::NOT_FAR_AWAY)->setDefaultDeliveryCost(2500)->setAdditionalDeliveryCost(0)->setOrderApplied(1);
+        $shippingAddress = new ShippingAddress();
+        self::$shippingAddressList[] = $shippingAddress->setId("Shipping-Address-02")->setName("집")->setCountryCode("KR")->setZipCode("12345")->setMainAddress("경기도 성남시 분당구 판교로123")->setDetailAddress("SK플래닛 2사옥")->setCity("성남시")->setState("경기도")->setRecipientName("USER")->setRecipientPhoneNumber("01012341234")->setDeliveryRestriction(DeliveryRestriction::NOT_FAR_AWAY)->setDefaultDeliveryCost(2500)->setAdditionalDeliveryCost(0)->setOrderApplied(2);
+        $shippingAddress = new ShippingAddress();
+        self::$shippingAddressList[] = $shippingAddress->setId("Shipping-Address-03")->setName("시골")->setCountryCode("KR")->setZipCode("56789")->setMainAddress("강원도 삼척시 산골면 시골읍")->setDetailAddress("판자집")->setCity("삼척")->setState("강원도")->setRecipientName("USER")->setRecipientPhoneNumber("01012341234")->setDeliveryRestriction(DeliveryRestriction::FAR_AWAY)->setDefaultDeliveryCost(2500)->setAdditionalDeliveryCost(2500)->setOrderApplied(3);
+        $shippingAddress = new ShippingAddress();
+        self::$shippingAddressList[] = $shippingAddress->setId("Shipping-Address-04")->setName("섬나라")->setCountryCode("KR")->setZipCode("98765")->setMainAddress("제주도 서귀포시 제주면 제주읍")->setDetailAddress("돌담집")->setCity("서귀포")->setState("제주도")->setRecipientName("USER")->setRecipientPhoneNumber("01012341234")->setDeliveryRestriction(DeliveryRestriction::FAR_FAR_AWAY)->setDefaultDeliveryCost(2500)->setAdditionalDeliveryCost(5000)->setOrderApplied(4);
+    }
+
+    public static function getDeliveryInfo()
+    {
+        $deliveryInfo = new ProductDeliveryInfo();
+        self::$productDeliveryInfoList[] = $deliveryInfo->setDeliveryType(DeliveryType::PREPAID)->setDeliveryName("선결제")->setDefaultDeliveryCostApplied(true)->setAdditionalDeliveryCostApplied(true);
+        $deliveryInfo = new ProductDeliveryInfo();
+        self::$productDeliveryInfoList[] = $deliveryInfo->setDeliveryType(DeliveryType::FREE)->setDeliveryName("무료배송")->setDefaultDeliveryCostApplied(false)->setAdditionalDeliveryCostApplied(true);
+        $deliveryInfo = new ProductDeliveryInfo();
+        self::$productDeliveryInfoList[] = $deliveryInfo->setDeliveryType(DeliveryType::DIY)->setDeliveryName("방문수령")->setDefaultDeliveryCostApplied(false)->setAdditionalDeliveryCostApplied(false);
+        $deliveryInfo = new ProductDeliveryInfo();
+        self::$productDeliveryInfoList[] = $deliveryInfo->setDeliveryType(DeliveryType::QUICK)->setDeliveryName("퀵서비스")->setDefaultDeliveryCostApplied(false)->setAdditionalDeliveryCostApplied(false);
+        $deliveryInfo = new ProductDeliveryInfo();
+        self::$productDeliveryInfoList[] = $deliveryInfo->setDeliveryType(DeliveryType::PAYMENT_ON_DELIVERY)->setDeliveryName("착불")->setDefaultDeliveryCostApplied(false)->setAdditionalDeliveryCostApplied(true);
     }
 }
