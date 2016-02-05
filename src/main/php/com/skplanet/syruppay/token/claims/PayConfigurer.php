@@ -125,7 +125,7 @@ class PayConfigurer extends AbstractTokenConfigurer
     public function withAmount($paymentAmount)
     {
         if ($paymentAmount <= 0) {
-            throw new \InvalidArgumentException("Cannot be smaller than 0. Check yours input value : " . paymentAmount);
+            throw new \InvalidArgumentException("Cannot be smaller than 0. Check yours input value : " . $paymentAmount);
         }
 
         $this->paymentInfo->setPaymentAmt($paymentAmount);
