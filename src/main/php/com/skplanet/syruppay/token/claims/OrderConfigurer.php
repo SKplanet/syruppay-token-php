@@ -226,13 +226,6 @@ class ErrorType
     const SYSTEM_ERR = 'SYSTEM_ERR';
 }
 
-class DeliveryRestriction
-{
-    const NOT_FAR_AWAY = 'NOT_FAR_AWAY';
-    const FAR_AWAY = 'FAR_AWAY';
-    const FAR_FAR_AWAY = 'FAR_FAR_AWAY';
-}
-
 class OfferType
 {
     const DELIVERY_COUPON = 'DELIVERY_COUPON';
