@@ -16,7 +16,13 @@ class PayConfigurer extends AbstractTokenConfigurer
 
     private $mctTransAuthId;
     private $mctDefinedValue;
+    /**
+     * @var com\skplanet\syruppay\token\claims\PaymentInformationBySeller
+     */
     private $paymentInfo;
+    /**
+     * @var com\skplanet\syruppay\token\claims\PaymentRestriction
+     */
     private $paymentRestrictions;
 
     function __construct()
@@ -491,6 +497,9 @@ class PaymentInformationBySeller
 {
     use ClassPropertyUtils;
 
+    /**
+     * @var com\skplanet\syruppay\token\claims\CardInstallmentInformation
+     */
     private $cardInfoList = array();
     private $productTitle;
     private $productUrls = array();

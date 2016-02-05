@@ -19,10 +19,25 @@ class OrderConfigurer extends AbstractTokenConfigurer
     private $submallName;
     private $privacyPolicyRequirements;
     private $mainShippingAddressSettingDisabled;
+    /**
+     * @var com\skplanet\syruppay\token\claims\ProductDeliveryInfo
+     */
     private $productDeliveryInfo;
+    /**
+     * @var com\skplanet\syruppay\token\claims\Offer
+     */
     private $offerList = array();
+    /**
+     * @var com\skplanet\syruppay\token\claims\Loyalty
+     */
     private $loyaltyList = array();
+    /**
+     * @var com\skplanet\syruppay\token\claims\ShippingAddress
+     */
     private $shippingAddressList = array();
+    /**
+     * @var com\skplanet\syruppay\token\claims\MonthlyInstallment
+     */
     private $monthlyInstallmentList = array();
 
     function __construct()
@@ -373,6 +388,9 @@ class Offer implements Element
     private $orderApplied;
     private $exclusiveGroupId;
     private $exclusiveGroupName;
+    /**
+     * @var com\skplanet\syruppay\token\claims\Accept
+     */
     private $accepted = array();
     private $applicableForNotMatchedUser;
 
@@ -607,6 +625,9 @@ class Loyalty implements Element
     private $maxApplicableAmt;
     private $initialAppliedAmt;
     private $orderApplied;
+    /**
+     * @var com\skplanet\syruppay\token\claims\AdditionalDiscount
+     */
     private $additionalDiscount;
     private $error;
     private $exclusiveGroupId;

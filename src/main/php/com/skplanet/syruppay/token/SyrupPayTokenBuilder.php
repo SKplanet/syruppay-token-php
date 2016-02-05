@@ -18,7 +18,7 @@ use com\skplanet\syruppay\token\claims\MapToSyrupPayUserConfigurer;
 use com\skplanet\syruppay\token\claims\MerchantUserConfigurer;
 use com\skplanet\syruppay\token\claims\OrderConfigurer;
 use com\skplanet\syruppay\token\claims\PayConfigurer;
-use com\skplanet\syruppay\token\jwt\SyrupPayTokenPropertyMapper;
+use com\skplanet\syruppay\token\jwt\SyrupPayToken;
 
 class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements ClaimBuilder, TokenBuilder
 {
@@ -42,8 +42,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
             ->key($key)
         )->deserialization();
 
-        $json = json_decode($payload, true);
-        return $json;
+        return self::fromJson(new SyrupPayToken(), json_decode($payload));
     }
 
     public function of($merchantId)
@@ -170,5 +169,74 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         }
 
         return json_encode($propertyArray);
+    }
+
+    private function fromJson($dest, \stdClass $src)
+    {
+        $srcReflection = new \ReflectionObject($src);
+        $srcProperties = $srcReflection->getProperties();
+
+        $destReflection = new \ReflectionObject($dest);
+        foreach ($srcProperties as $srcProperty) {
+            $propertyName = $srcProperty->getName();
+            $propertyValue = $srcProperty->getValue($src);
+
+            if ($destReflection->hasProperty($propertyName)) {
+                if (is_object($propertyValue)) {    //single custom class variable
+                    $className = self::getAnnotation($dest, $propertyName);
+                    if (!isset($className)) {
+                        continue;
+                    }
+
+                    $newClassObject = self::fromJson(new $className(), $propertyValue);
+                    self::injectValue($dest, $propertyName, $newClassObject);
+                } else if (is_array($propertyValue)) {  //custom class list or primitive list
+                    $className = SyrupPayTokenBuilder::getAnnotation($dest, $propertyName);
+
+                    //case on primitive list
+                    if (!isset($className) || empty($className)) {
+                        self::injectValue($dest, $propertyName, $propertyValue);
+                        continue;
+                    }
+
+                    //case on custom list
+                    $arrayNewClassObject = array();
+                    foreach ($propertyValue as $arrayKey => $arrayValue) {  //arrayKey : 0, arrayValue : stdClass
+                        $newClassObject = self::fromJson(new $className, $arrayValue);
+                        $arrayNewClassObject[] = $newClassObject;
+                    }
+
+                    self::injectValue($dest, $propertyName, $arrayNewClassObject);
+                } else {
+                    self::injectValue($dest, $propertyName, $propertyValue);
+                }
+            }
+        }
+
+        return $dest;
+    }
+
+    private function getAnnotation($dest, $propertyName)
+    {
+        $destReflection = new \ReflectionObject($dest);
+        $destProperty = $destReflection->getProperty($propertyName);
+        $comment = $destProperty->getDocComment();
+        if (isset($comment)) {
+            $comment = substr($comment, 3, -2);
+            $className = preg_replace('/^\s*\*\s*@\s*var\s*/i', '', $comment);
+            $className = preg_replace('/\s+/', '', $className);
+
+            return $className;
+        }
+
+        return null;
+    }
+
+    private function injectValue($dest, $propertyName, $value)
+    {
+        $destReflection = new \ReflectionObject($dest);
+        $destProperty = $destReflection->getProperty($propertyName);
+        $destProperty->setAccessible(true);
+        $destProperty->setValue($dest, $value);
     }
 }

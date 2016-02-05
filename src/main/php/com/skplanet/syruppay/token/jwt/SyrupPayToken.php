@@ -21,7 +21,13 @@ class SyrupPayToken implements Token
     private $nbf;
     private $sub;
 
+    /**
+     * @var com\skplanet\syruppay\token\claims\MerchantUserConfigurer
+     */
     private $loginInfo;
+    /**
+     * @var com\skplanet\syruppay\token\claims\PayConfigurer
+     */
     private $transactionInfo;
     private $userInfoMapper;
     private $lineInfo;
