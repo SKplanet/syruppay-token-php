@@ -79,8 +79,12 @@ class PayConfigurer extends AbstractTokenConfigurer
         return $this;
     }
 
-    public function withProductUrls(array $productUrls)
+    public function withProductUrls($productUrls)
     {
+        if (is_string($productUrls)) {
+            $productUrls = array($productUrls);
+        }
+
         foreach ($productUrls as $productUrl) {
             if (!($this->startsWith($productUrl, "http") ||
                 $this->startsWith($productUrl, "https"))
