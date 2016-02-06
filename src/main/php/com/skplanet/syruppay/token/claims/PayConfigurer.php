@@ -120,12 +120,6 @@ class PayConfigurer extends AbstractTokenConfigurer
         return $this;
     }
 
-    public function withShippingAddressByString($shippingAddress)
-    {
-        $this->paymentInfo->setShippingAddress($shippingAddress);
-        return $this;
-    }
-
     public function withAmount($paymentAmount)
     {
         if ($paymentAmount <= 0) {
