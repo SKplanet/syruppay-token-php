@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "syruppay/jose": "1.0"
+        "syruppay/jose": "v1.0.1"
     },
     "require-dev": {
         "phpunit/phpunit": "4.7.7"
