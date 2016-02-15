@@ -9,14 +9,12 @@
 namespace com\skplanet\syruppay\token\claims\elements;
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\PropertyMapper;
 
-class AdditionalDiscount implements Element
+class AdditionalDiscount extends PropertyMapper implements Element
 {
-    use ClassPropertyUtils;
-
-    private $percentOff;
-    private $maxApplicableAmt;
+    protected $percentOff;
+    protected $maxApplicableAmt;
 
     public function getPercentOff()
     {

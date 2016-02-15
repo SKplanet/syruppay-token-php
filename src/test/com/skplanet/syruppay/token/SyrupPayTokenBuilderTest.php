@@ -135,10 +135,11 @@ class SyrupPayTokenBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse(empty($t));
     }
 
+    /**
+     * @expectedException com\skplanet\syruppay\token\AlreadyBuiltException
+     */
     public function test_이미_생성한_토큰빌드를_재활용()
     {
-        $this->setExpectedException(AlreadyBuiltException::class);
-
         $builder = new SyrupPayTokenBuilder();
         $builder->of("가맹점")->generateTokenBy("가맹점에게 전달한 비밀키");
         $builder->generateTokenBy("가맹점에게 전달한 비밀키");

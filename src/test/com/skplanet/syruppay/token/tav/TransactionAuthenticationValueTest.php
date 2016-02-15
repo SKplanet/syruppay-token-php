@@ -13,25 +13,25 @@ use com\skplanet\syruppay\token\SyrupPayTokenBuilder;
 
 class TransactionAuthenticationValueTest extends \PHPUnit_Framework_TestCase
 {
-    public static $json = "{\n" .
-    "\t\"cardToken\": \"dT2bT-P5dvK0-3zCi9VByf_SUsXxLEmITJGLsWm_oYE\",\n" .
-    "\t\"mctTransAuthId\": \"0f2e781e-1d38-4766-a635-8d906d3fdff7\",\n" .
-    "\t\"ocTransAuthId\": \"TA20151130000000000020008\",\n" .
-    "\t\"paymentAuthenticationDetail\": {\n" .
-    "\t\t\"payMethod\": \"10\",\n" .
-    "\t\t\"payAmount\": 1000,\n" .
-    "\t\t\"offerAmount\": 0,\n" .
-    "\t\t\"loyaltyAmount\": 0,\n" .
-    "\t\t\"payInstallment\": \"00\",\n" .
-    "\t\t\"payCurrency\": \"KRW\",\n" .
-    "\t\t\"payFinanceCode\": \"17\",\n" .
-    "\t\t\"isCardPointApplied\": false\n" .
-    "\t}\n" .
-    "}";
-
     public static function getTransactionAuthenticationValue()
     {
-        $j = json_decode(self::$json);
+        $json = "{\n" .
+        "\t\"cardToken\": \"dT2bT-P5dvK0-3zCi9VByf_SUsXxLEmITJGLsWm_oYE\",\n" .
+        "\t\"mctTransAuthId\": \"0f2e781e-1d38-4766-a635-8d906d3fdff7\",\n" .
+        "\t\"ocTransAuthId\": \"TA20151130000000000020008\",\n" .
+        "\t\"paymentAuthenticationDetail\": {\n" .
+        "\t\t\"payMethod\": \"10\",\n" .
+        "\t\t\"payAmount\": 1000,\n" .
+        "\t\t\"offerAmount\": 0,\n" .
+        "\t\t\"loyaltyAmount\": 0,\n" .
+        "\t\t\"payInstallment\": \"00\",\n" .
+        "\t\t\"payCurrency\": \"KRW\",\n" .
+        "\t\t\"payFinanceCode\": \"17\",\n" .
+        "\t\t\"isCardPointApplied\": false\n" .
+        "\t}\n" .
+        "}";
+
+        $j = json_decode($json);
         $t = SyrupPayTokenBuilder::fromJson(new TransactionAuthenticationValue(), $j);
         return $t;
     }

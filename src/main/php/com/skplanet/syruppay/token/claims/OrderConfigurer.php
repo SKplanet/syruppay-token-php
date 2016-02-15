@@ -10,36 +10,33 @@ namespace com\skplanet\syruppay\token\claims;
 
 
 use com\skplanet\syruppay\token\claims\elements\ProductDeliveryInfo;
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
 
 class OrderConfigurer extends AbstractTokenConfigurer
 {
-    use ClassPropertyUtils;
-
-    private $productPrice;
-    private $submallName;
-    private $privacyPolicyRequirements;
-    private $mainShippingAddressSettingDisabled;
+    protected $productPrice;
+    protected $submallName;
+    protected $privacyPolicyRequirements;
+    protected $mainShippingAddressSettingDisabled;
     /**
      * @var com\skplanet\syruppay\token\claims\elements\ProductDeliveryInfo
      */
-    private $productDeliveryInfo;
+    protected $productDeliveryInfo;
     /**
      * @var com\skplanet\syruppay\token\claims\elements\Offer
      */
-    private $offerList = array();
+    protected $offerList = array();
     /**
      * @var com\skplanet\syruppay\token\claims\elements\Loyalty
      */
-    private $loyaltyList = array();
+    protected $loyaltyList = array();
     /**
      * @var com\skplanet\syruppay\token\claims\ShippingAddress
      */
-    private $shippingAddressList = array();
+    protected $shippingAddressList = array();
     /**
      * @var com\skplanet\syruppay\token\claims\elements\MonthlyInstallment
      */
-    private $monthlyInstallmentList = array();
+    protected $monthlyInstallmentList = array();
 
     function __construct()
     {

@@ -8,22 +8,20 @@
 
 namespace com\skplanet\syruppay\token\claims;
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\PropertyMapper;
 
 class PayConfigurer extends AbstractTokenConfigurer
 {
-    use ClassPropertyUtils;
-
-    private $mctTransAuthId;
-    private $mctDefinedValue;
+    protected $mctTransAuthId;
+    protected $mctDefinedValue;
     /**
      * @var com\skplanet\syruppay\token\claims\PaymentInformationBySeller
      */
-    private $paymentInfo;
+    protected $paymentInfo;
     /**
      * @var com\skplanet\syruppay\token\claims\PaymentRestriction
      */
-    private $paymentRestrictions;
+    protected $paymentRestrictions;
 
     function __construct()
     {
@@ -214,7 +212,12 @@ class PayableLocaleRule
     const ONLY_ALLOWED_USA = "ALLOWED:USA";
     const ONLY_NOT_ALLOWED_USA = "NOT_ALLOWED:USA";
 
-    const PayableLocaleRules = array(ONLY_ALLOWED_KOR, ONLY_NOT_ALLOWED_KOR, ONLY_ALLOWED_USA, ONLY_NOT_ALLOWED_USA);
+//    const PayableLocaleRules = array(ONLY_ALLOWED_KOR, ONLY_NOT_ALLOWED_KOR, ONLY_ALLOWED_USA, ONLY_NOT_ALLOWED_USA);
+
+    public static function getPayableLocaleRules()
+    {
+        return array(ONLY_ALLOWED_KOR, ONLY_NOT_ALLOWED_KOR, ONLY_ALLOWED_USA, ONLY_NOT_ALLOWED_USA);
+    }
 }
 
 class DeliveryRestriction
@@ -224,25 +227,23 @@ class DeliveryRestriction
     const FAR_FAR_AWAY = 'FAR_FAR_AWAY';
 }
 
-class ShippingAddress
+class ShippingAddress extends PropertyMapper
 {
-    use ClassPropertyUtils;
-
-    private $id;
-    private $userActionCode;
-    private $name;
-    private $countryCode;
-    private $zipCode;
-    private $mainAddress;
-    private $detailAddress;
-    private $city;
-    private $state;
-    private $recipientName;
-    private $recipientPhoneNumber;
-    private $deliveryRestriction;
-    private $defaultDeliveryCost;
-    private $additionalDeliveryCost;
-    private $orderApplied;
+    protected $id;
+    protected $userActionCode;
+    protected $name;
+    protected $countryCode;
+    protected $zipCode;
+    protected $mainAddress;
+    protected $detailAddress;
+    protected $city;
+    protected $state;
+    protected $recipientName;
+    protected $recipientPhoneNumber;
+    protected $deliveryRestriction;
+    protected $defaultDeliveryCost;
+    protected $additionalDeliveryCost;
+    protected $orderApplied;
 
     public function __construct()
     {
@@ -459,12 +460,10 @@ class ShippingAddress
     }
 }
 
-class CardInstallmentInformation
+class CardInstallmentInformation extends PropertyMapper
 {
-    use ClassPropertyUtils;
-
-    private $cardCode;
-    private $monthlyInstallmentInfo;
+    protected $cardCode;
+    protected $monthlyInstallmentInfo;
 
     public function __construct()
     {
@@ -491,23 +490,21 @@ class CardInstallmentInformation
     }
 }
 
-class PaymentInformationBySeller
+class PaymentInformationBySeller extends PropertyMapper
 {
-    use ClassPropertyUtils;
-
     /**
      * @var com\skplanet\syruppay\token\claims\CardInstallmentInformation
      */
-    private $cardInfoList = array();
-    private $productTitle;
-    private $productUrls = array();
-    private $lang = "KO";
-    private $currencyCode = "KRW";
-    private $paymentAmt;
-    private $shippingAddress;
-    private $deliveryPhoneNumber;
-    private $deliveryName;
-    private $isExchangeable;
+    protected $cardInfoList = array();
+    protected $productTitle;
+    protected $productUrls = array();
+    protected $lang = "KO";
+    protected $currencyCode = "KRW";
+    protected $paymentAmt;
+    protected $shippingAddress;
+    protected $deliveryPhoneNumber;
+    protected $deliveryName;
+    protected $isExchangeable;
 
     public function getProductTitle()
     {
@@ -610,11 +607,9 @@ class PaymentInformationBySeller
     }
 }
 
-class PaymentRestriction
+class PaymentRestriction extends PropertyMapper
 {
-    use ClassPropertyUtils;
-
-    private $cardIssuerRegion = "ALLOWED:KOR";
+    protected $cardIssuerRegion = "ALLOWED:KOR";
 
     public function getCardIssuerRegion()
     {
@@ -628,7 +623,7 @@ class PaymentRestriction
 
     public function getPayableLocaleRule()
     {
-        if (in_array(strtoupper($this->cardInfoList), PayableLocaleRule::PayableLocaleRules)) {
+        if (in_array(strtoupper($this->cardInfoList), PayableLocaleRule::getPayableLocaleRules())) {
             return $this->cardInfoList;
         }
 

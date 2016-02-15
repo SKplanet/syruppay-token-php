@@ -9,7 +9,7 @@
 namespace com\skplanet\syruppay\token;
 
 
-abstract class ClaimConfigurerAdapter implements ClaimConfigurer
+abstract class ClaimConfigurerAdapter extends PropertyMapper implements ClaimConfigurer
 {
     private $builder;
 

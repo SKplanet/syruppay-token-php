@@ -9,26 +9,24 @@
 namespace com\skplanet\syruppay\token\claims\elements;
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\PropertyMapper;
 
-class Offer implements Element
+class Offer extends PropertyMapper implements Element
 {
-    use ClassPropertyUtils;
-
-    private $id;
-    private $userActionCode;
-    private $type;
-    private $name;
-    private $amountOff;
-    private $userSelectable;
-    private $orderApplied;
-    private $exclusiveGroupId;
-    private $exclusiveGroupName;
+    protected $id;
+    protected $userActionCode;
+    protected $type;
+    protected $name;
+    protected $amountOff;
+    protected $userSelectable;
+    protected $orderApplied;
+    protected $exclusiveGroupId;
+    protected $exclusiveGroupName;
     /**
      * @var com\skplanet\syruppay\token\claims\Accept
      */
-    private $accepted = array();
-    private $applicableForNotMatchedUser;
+    protected $accepted = array();
+    protected $applicableForNotMatchedUser;
 
     public function isApplicableForNotMatchedUser()
     {

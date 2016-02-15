@@ -9,16 +9,12 @@
 namespace com\skplanet\syruppay\token\claims;
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
-
 class MerchantUserConfigurer extends AbstractTokenConfigurer
 {
-    use ClassPropertyUtils;
-
-    private $mctUserId;
-    private $extraUserId;
-    private $SSOCredential;
-    private $deviceIdentifier;
+    protected $mctUserId;
+    protected $extraUserId;
+    protected $SSOCredential;
+    protected $deviceIdentifier;
 
     public function getMctUserId()
     {

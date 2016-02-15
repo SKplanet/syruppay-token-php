@@ -9,12 +9,12 @@
 
 ## Getting Start
 ## PHP version
-=> PHP 5.6
+=> PHP 5.3.3
 
 ## Installation
 ### composer ([packagist](https://packagist.org/packages/syruppay/token))
 ```
-"syruppay/token": "v1.0.0"`
+"syruppay/token": "v1.0.1"`
 
 ```
 

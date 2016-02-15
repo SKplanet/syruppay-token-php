@@ -9,14 +9,12 @@
 namespace com\skplanet\syruppay\token\claims\elements;
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\PropertyMapper;
 
-class MonthlyInstallment implements Element
+class MonthlyInstallment extends PropertyMapper implements Element
 {
-    use ClassPropertyUtils;
-
-    private $cardCode;
-    private $conditions = array();
+    protected $cardCode;
+    protected $conditions = array();
 
     public function getCardCode()
     {

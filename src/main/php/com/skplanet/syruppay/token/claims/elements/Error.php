@@ -9,14 +9,12 @@
 namespace com\skplanet\syruppay\token\claims\elements;
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\PropertyMapper;
 
-class Error implements Element
+class Error extends PropertyMapper implements Element
 {
-    use ClassPropertyUtils;
-
-    private $type;
-    private $description;
+    protected $type;
+    protected $description;
 
     public function getType()
     {

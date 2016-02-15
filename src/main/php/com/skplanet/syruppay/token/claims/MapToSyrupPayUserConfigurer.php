@@ -9,14 +9,10 @@
 namespace com\skplanet\syruppay\token\claims;
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
-
 class MapToSyrupPayUserConfigurer extends AbstractTokenConfigurer
 {
-    use ClassPropertyUtils;
-
-    private $mappingType;
-    private $mappingValue;
+    protected $mappingType;
+    protected $mappingValue;
 
     public function getMappingType()
     {

@@ -10,17 +10,17 @@ namespace com\skplanet\syruppay\token\tav;
 
 
 use com\skplanet\jose\util\Base64UrlSafeEncoder;
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\PropertyMapper;
 
-class TransactionAuthenticationValue
+class TransactionAuthenticationValue extends PropertyMapper
 {
-    private $cardToken;
-    private $mctTransAuthId;
-    private $ocTransAuthId;
+    protected $cardToken;
+    protected $mctTransAuthId;
+    protected $ocTransAuthId;
     /**
      * @var com\skplanet\syruppay\token\tav\PaymentAuthenticationDetail
      */
-    private $paymentAuthenticationDetail;
+    protected $paymentAuthenticationDetail;
 
     public function getCardToken()
     {
@@ -61,18 +61,16 @@ class TransactionAuthenticationValue
     }
 }
 
-class PaymentAuthenticationDetail
+class PaymentAuthenticationDetail extends PropertyMapper
 {
-    use ClassPropertyUtils;
-
-    private $payMethod;
-    private $payAmount;
-    private $offerAmount;
-    private $loyaltyAmount;
-    private $payInstallment;
-    private $payCurrency;
-    private $payFinanceCode;
-    private $isCardPointApplied;
+    protected $payMethod;
+    protected $payAmount;
+    protected $offerAmount;
+    protected $loyaltyAmount;
+    protected $payInstallment;
+    protected $payCurrency;
+    protected $payFinanceCode;
+    protected $isCardPointApplied;
 
     public function getPayMethod()
     {

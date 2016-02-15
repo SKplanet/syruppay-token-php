@@ -9,31 +9,29 @@
 namespace com\skplanet\syruppay\token\claims\elements;
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\PropertyMapper;
 
-class Loyalty implements Element
+class Loyalty extends PropertyMapper implements Element
 {
-    use ClassPropertyUtils;
-
-    private $id;
-    private $userActionCode;
-    private $name;
-    private $subscriberId;
-    private $balance;
-    private $maxApplicableAmt;
-    private $initialAppliedAmt;
-    private $orderApplied;
+    protected $id;
+    protected $userActionCode;
+    protected $name;
+    protected $subscriberId;
+    protected $balance;
+    protected $maxApplicableAmt;
+    protected $initialAppliedAmt;
+    protected $orderApplied;
     /**
      * @var com\skplanet\syruppay\token\claims\elements\AdditionalDiscount
      */
-    private $additionalDiscount;
+    protected $additionalDiscount;
     /**
      * @var com\skplanet\syruppay\token\claims\elements\Error
      */
-    private $error;
-    private $exclusiveGroupId;
-    private $exclusiveGroupName;
-    private $applicableForNotMatchedUser;
+    protected $error;
+    protected $exclusiveGroupId;
+    protected $exclusiveGroupName;
+    protected $applicableForNotMatchedUser;
 
     public function isApplicableForNotMatchedUser()
     {

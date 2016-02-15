@@ -9,21 +9,18 @@
 namespace com\skplanet\syruppay\token;
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
 use com\skplanet\syruppay\token\utils\UUID;
 
-class Jwt
+class Jwt extends PropertyMapper
 {
-    use ClassPropertyUtils;
-
-    private $aud = "https://pay.syrup.co.kr";
-    private $typ = "jose";
-    private $iss;
-    private $exp;
-    private $iat;
-    private $jti;
-    private $nbf;
-    private $sub;
+    protected $aud = "https://pay.syrup.co.kr";
+    protected $typ = "jose";
+    protected $iss;
+    protected $exp;
+    protected $iat;
+    protected $jti;
+    protected $nbf;
+    protected $sub;
 
     function __construct()
     {

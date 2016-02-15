@@ -10,17 +10,15 @@ namespace com\skplanet\syruppay\token\claims\elements;
 
 
 
-use com\skplanet\syruppay\token\utils\ClassPropertyUtils;
+use com\skplanet\syruppay\token\PropertyMapper;
 
-class ProductDeliveryInfo implements Element
+class ProductDeliveryInfo extends PropertyMapper implements Element
 {
-    use ClassPropertyUtils;
-
-    private $deliveryType;
-    private $deliveryName;
-    private $defaultDeliveryCostApplied;
-    private $additionalDeliveryCostApplied;
-    private $shippingAddressDisplay;
+    protected $deliveryType;
+    protected $deliveryName;
+    protected $defaultDeliveryCostApplied;
+    protected $additionalDeliveryCostApplied;
+    protected $shippingAddressDisplay;
 
     public function isShippingAddressDisplay()
     {
