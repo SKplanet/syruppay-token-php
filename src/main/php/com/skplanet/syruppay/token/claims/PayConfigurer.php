@@ -181,6 +181,23 @@ class PayConfigurer extends AbstractTokenConfigurer
         return $this;
     }
 
+    public function withRestrictionPaymentType($paymentType)
+    {
+        $this->paymentRestrictions->setPaymentType($paymentType);
+        return $this;
+    }
+
+    public function withRestrictionUserType($matchedUser)
+    {
+        if (MatchedUser::CI_MATCHED_ONLY != $matchedUser)
+        {
+            throw new \InvalidArgumentException("matchedUser should be 'CI_MATCHED_ONLY");
+        }
+
+        $this->paymentRestrictions->setMatchedUser($matchedUser);
+        return $this;
+    }
+
     function claimName()
     {
         return "transactionInfo";
@@ -228,12 +245,15 @@ class PayableLocaleRule
     const ONLY_ALLOWED_USA = "ALLOWED:USA";
     const ONLY_NOT_ALLOWED_USA = "NOT_ALLOWED:USA";
 
-//    const PayableLocaleRules = array(ONLY_ALLOWED_KOR, ONLY_NOT_ALLOWED_KOR, ONLY_ALLOWED_USA, ONLY_NOT_ALLOWED_USA);
-
     public static function getPayableLocaleRules()
     {
         return array(ONLY_ALLOWED_KOR, ONLY_NOT_ALLOWED_KOR, ONLY_ALLOWED_USA, ONLY_NOT_ALLOWED_USA);
     }
+}
+
+class MatchedUser
+{
+    const CI_MATCHED_ONLY = "CI_MATCHED_ONLY";
 }
 
 class DeliveryRestriction
@@ -626,6 +646,8 @@ class PaymentInformationBySeller extends PropertyMapper
 class PaymentRestriction extends PropertyMapper
 {
     protected $cardIssuerRegion = "ALLOWED:KOR";
+    protected $paymentType;
+    protected $matchedUser;
 
     public function getCardIssuerRegion()
     {
@@ -644,6 +666,26 @@ class PaymentRestriction extends PropertyMapper
         }
 
         throw new \InvalidArgumentException("cardIssuerRegion of this object is not matched with PaymentRestriction enumeration. check this : " . $this->cardIssuerRegion);
+    }
+
+    public function getPaymentType()
+    {
+        return $this->paymentType;
+    }
+
+    public function setPaymentType($paymentType)
+    {
+        $this->paymentType = $paymentType;
+    }
+
+    public function getMatchedUser()
+    {
+        return $this->matchedUser;
+    }
+
+    public function setMatchedUser($matchedUser)
+    {
+        $this->matchedUser = $matchedUser;
     }
 }
 
