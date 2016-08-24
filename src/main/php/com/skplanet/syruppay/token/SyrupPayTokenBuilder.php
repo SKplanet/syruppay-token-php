@@ -34,7 +34,9 @@ use com\skplanet\syruppay\token\claims\MapToSyrupPayUserConfigurer;
 use com\skplanet\syruppay\token\claims\MerchantUserConfigurer;
 use com\skplanet\syruppay\token\claims\OrderConfigurer;
 use com\skplanet\syruppay\token\claims\PayConfigurer;
+use com\skplanet\syruppay\token\claims\SubscriptionConfigurer;
 use com\skplanet\syruppay\token\jwt\SyrupPayToken;
+use com\skplanet\syruppay\token\utils\JsonPrettyPrint;
 
 class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements ClaimBuilder, TokenBuilder
 {
@@ -129,6 +131,14 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         return $mapToSyrupPayUserConfigurer;
     }
 
+    public function subscription()
+    {
+        $subscription = new SubscriptionConfigurer();
+        $this->getOrApply($subscription);
+
+        return $subscription;
+    }
+
     private function getOrApply($configurer)
     {
         $existingConfig = $this->getConfigurer(get_class($configurer));
@@ -189,7 +199,9 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
             }
         }
 
-        return json_encode($propertyArray);
+        $json = json_encode($propertyArray);
+//        echo JsonPrettyPrint::prettyPrint($json);
+        return $json;
     }
 
     public static function fromJson($dest, \stdClass $src)
