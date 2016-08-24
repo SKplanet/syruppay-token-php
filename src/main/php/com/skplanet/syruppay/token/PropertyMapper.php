@@ -41,7 +41,7 @@ class PropertyMapper
                     } else {
                         continue;
                     }
-                } else if (is_array($pValue)) {
+                } else if (is_array($pValue) && !empty($pValue)) {
                     $arValue = array();
                     foreach ($pValue as $pArKey => $pArValue) {
                         if (method_exists($pArValue, "__toArray")) {
@@ -52,6 +52,8 @@ class PropertyMapper
                     }
 
                     $value = $arValue;
+                } else if (is_array($pValue) && empty($pValue)) {
+                    continue;
                 }
 
                 $propertyMap[$pKey] = $value;
