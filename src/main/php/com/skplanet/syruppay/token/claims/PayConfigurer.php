@@ -29,6 +29,7 @@ use com\skplanet\syruppay\token\PropertyMapper;
 class PayConfigurer extends AbstractTokenConfigurer
 {
     protected $mctTransAuthId;
+    protected $cashReceiptDisplay;
     protected $mctDefinedValue;
     /**
      * @var com\skplanet\syruppay\token\claims\PaymentInformationBySeller
@@ -73,6 +74,15 @@ class PayConfigurer extends AbstractTokenConfigurer
     public function withOrderIdOfMerchant($orderId)
     {
         $this->mctTransAuthId = $orderId;
+        return $this;
+    }
+
+    public function withCashReceiptDisplay($cashReceiptDisplay)
+    {
+        if (!in_array(strtoupper($cashReceiptDisplay), CashReceiptDisplay::getCashReceiptDisplays()))
+            throw new \InvalidArgumentException("cashReceiptDisplay should be one of 'YES' or 'NO'");
+
+        $this->cashReceiptDisplay = $cashReceiptDisplay;
         return $this;
     }
 
@@ -175,6 +185,22 @@ class PayConfigurer extends AbstractTokenConfigurer
         return $this;
     }
 
+    public function withBankInfo($bankCodes)
+    {
+        $bankInfoList = array();
+        if (!is_array($bankCodes) instanceof Bank)
+        {
+            $bankInfoList[] = $bankCodes;
+        }
+        else
+        {
+            $bankInfoList = $bankCodes;
+        }
+
+        $this->paymentInfo->setBankInfoList($bankInfoList);
+        return $this;
+    }
+
     public function withPayableRuleWithCard($payableLocaleRule)
     {
         $this->paymentRestrictions->setCardIssuerRegion($payableLocaleRule);
@@ -261,6 +287,18 @@ class DeliveryRestriction
     const NOT_FAR_AWAY = 'NOT_FAR_AWAY';
     const FAR_AWAY = 'FAR_AWAY';
     const FAR_FAR_AWAY = 'FAR_FAR_AWAY';
+}
+
+class CashReceiptDisplay
+{
+    const YES = "YES";
+    const NO = "NO";
+    const DELEGATE_ADMIN = "DELEGATE_ADMIN";
+
+    public static function getCashReceiptDisplays()
+    {
+        return array(CashReceiptDisplay::YES, CashReceiptDisplay::NO, CashReceiptDisplay::DELEGATE_ADMIN);
+    }
 }
 
 class ShippingAddress extends PropertyMapper
@@ -541,6 +579,7 @@ class PaymentInformationBySeller extends PropertyMapper
     protected $deliveryPhoneNumber;
     protected $deliveryName;
     protected $isExchangeable;
+    protected $bankInfoList = array();
 
     public function getProductTitle()
     {
@@ -641,6 +680,16 @@ class PaymentInformationBySeller extends PropertyMapper
     {
         $this->cardInfoList = array_merge($this->cardInfoList, $cardInfoList);
     }
+
+    public function getBankInfoList()
+    {
+        return $this->bankInfoList;
+    }
+
+    public function setBankInfoList(array $bankInfoList)
+    {
+        $this->bankInfoList = array_merge($this->bankInfoList, $bankInfoList);
+    }
 }
 
 class PaymentRestriction extends PropertyMapper
@@ -689,4 +738,35 @@ class PaymentRestriction extends PropertyMapper
     }
 }
 
+class Bank extends PropertyMapper
+{
+    protected $bankCode;
 
+    public function __construct()
+    {
+        if (func_num_args() == 1)
+        {
+            $bankCodes = func_get_arg(0);
+            var_dump($bankCodes);
+            if (is_array($bankCodes))
+            {
+                foreach ($bankCodes as $bankCode)
+                {
+                    var_dump($bankCode);
+                    if (isset($this->bankCode))
+                        $this->bankCode .= ":";
+                    $this->bankCode .= $bankCode;
+                }
+            }
+            else
+            {
+                throw new \InvalidArgumentException("bankCode is array type. ex) array('bankCode', 'bankCode')");
+            }
+        }
+    }
+
+    public function getBankCode()
+    {
+        return $this->bankCode;
+    }
+}
