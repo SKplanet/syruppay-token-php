@@ -747,12 +747,10 @@ class Bank extends PropertyMapper
         if (func_num_args() == 1)
         {
             $bankCodes = func_get_arg(0);
-            var_dump($bankCodes);
             if (is_array($bankCodes))
             {
                 foreach ($bankCodes as $bankCode)
                 {
-                    var_dump($bankCode);
                     if (isset($this->bankCode))
                         $this->bankCode .= ":";
                     $this->bankCode .= $bankCode;
