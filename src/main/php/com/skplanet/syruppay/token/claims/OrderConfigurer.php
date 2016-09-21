@@ -46,13 +46,17 @@ class OrderConfigurer extends AbstractTokenConfigurer
      */
     protected $loyaltyList = array();
     /**
-     * @var com\skplanet\syruppay\token\claims\ShippingAddress
+     * @var com\skplanet\syruppay\token\claims\elements\ShippingAddress
      */
     protected $shippingAddressList = array();
     /**
      * @var com\skplanet\syruppay\token\claims\elements\MonthlyInstallment
      */
     protected $monthlyInstallmentList = array();
+    /**
+     * @var com\skplanet\syruppay\token\claims\elements\Bank
+     */
+    protected $bankInfoList = array();
 
     function __construct()
     {
@@ -199,7 +203,7 @@ class OrderConfigurer extends AbstractTokenConfigurer
         return $this;
     }
 
-    public function withMonthlyInstallment(array $monthlyInstallments)
+    public function withMonthlyInstallments(array $monthlyInstallments)
     {
         foreach ($monthlyInstallments as $monthlyInstallment) {
             if (is_object($monthlyInstallment) && $monthlyInstallment instanceof MonthlyInstallment) {
@@ -207,6 +211,12 @@ class OrderConfigurer extends AbstractTokenConfigurer
             }
         }
         $this->monthlyInstallmentList = array_merge($this->monthlyInstallmentList, $monthlyInstallments);
+        return $this;
+    }
+
+    public function withBankInfos(array $bankInfos)
+    {
+        $this->bankInfoList = $bankInfos;
         return $this;
     }
 

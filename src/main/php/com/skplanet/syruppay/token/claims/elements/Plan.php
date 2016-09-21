@@ -21,46 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace com\skplanet\syruppay\token\claims\elements;
+
 
 use com\skplanet\syruppay\token\PropertyMapper;
 
-class Accept extends PropertyMapper implements Element
+class Plan extends PropertyMapper
 {
-    protected $type;
-    protected $conditions = array();
+    protected $interval;
+    protected $name;
 
-    public function getType()
+    public function setInterval($interval)
     {
-        return $this->type;
+        $this->interval = $interval;
     }
 
-    public function setType($type)
+    public function getInterval()
     {
-        $this->type = $type;
-        return $this;
+        return $this->interval;
     }
 
-    public function getConditions()
+    public function setName($name)
     {
-        return $this->conditions;
+        $this->name = $name;
     }
 
-    public function addConditions($cardCode, $minPaymentAmt)
+    public function getName()
     {
-        $this->conditions[] = array('cardCode' => $cardCode, 'minPaymentAmt' => $minPaymentAmt);
-        return $this;
-    }
-
-    function validRequired()
-    {
-        if (!isset($type)) {
-            throw new \InvalidArgumentException("Accept object couldn't be with null fields.");
-        }
-
-        if (!isset($this->conditions) || empty($this->conditions)) {
-            throw new \InvalidArgumentException("Conditions of Accept object couldn't be empty. you should contain with conditions of Accept object.");
-        }
+        return $this->name;
     }
 }
-

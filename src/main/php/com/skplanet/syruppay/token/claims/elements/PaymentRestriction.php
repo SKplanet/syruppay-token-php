@@ -21,46 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace com\skplanet\syruppay\token\claims\elements;
 
+use com\skplanet\syruppay\token\claims\value\PayableLocaleRule;
 use com\skplanet\syruppay\token\PropertyMapper;
 
-class Accept extends PropertyMapper implements Element
+class PaymentRestriction extends PropertyMapper
 {
-    protected $type;
-    protected $conditions = array();
+    protected $cardIssuerRegion = "ALLOWED:KOR";
+    protected $paymentType;
+    protected $matchedUser;
 
-    public function getType()
+    public function getCardIssuerRegion()
     {
-        return $this->type;
+        return $this->cardIssuerRegion;
     }
 
-    public function setType($type)
+    public function setCardIssuerRegion($cardIssuerRegion)
     {
-        $this->type = $type;
-        return $this;
+        $this->cardIssuerRegion = $cardIssuerRegion;
     }
 
-    public function getConditions()
+    public function getPayableLocaleRule()
     {
-        return $this->conditions;
-    }
-
-    public function addConditions($cardCode, $minPaymentAmt)
-    {
-        $this->conditions[] = array('cardCode' => $cardCode, 'minPaymentAmt' => $minPaymentAmt);
-        return $this;
-    }
-
-    function validRequired()
-    {
-        if (!isset($type)) {
-            throw new \InvalidArgumentException("Accept object couldn't be with null fields.");
+        if (in_array(strtoupper($this->cardInfoList), PayableLocaleRule::getPayableLocaleRules())) {
+            return $this->cardInfoList;
         }
 
-        if (!isset($this->conditions) || empty($this->conditions)) {
-            throw new \InvalidArgumentException("Conditions of Accept object couldn't be empty. you should contain with conditions of Accept object.");
-        }
+        throw new \InvalidArgumentException("cardIssuerRegion of this object is not matched with PaymentRestriction enumeration. check this : " . $this->cardIssuerRegion);
+    }
+
+    public function getPaymentType()
+    {
+        return $this->paymentType;
+    }
+
+    public function setPaymentType($paymentTypes)
+    {
+        $this->paymentType = $paymentTypes;
+    }
+
+    public function getMatchedUser()
+    {
+        return $this->matchedUser;
+    }
+
+    public function setMatchedUser($matchedUser)
+    {
+        $this->matchedUser = $matchedUser;
     }
 }
-

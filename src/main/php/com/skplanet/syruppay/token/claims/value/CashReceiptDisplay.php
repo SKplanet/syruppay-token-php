@@ -21,46 +21,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace com\skplanet\syruppay\token\claims\elements;
 
-use com\skplanet\syruppay\token\PropertyMapper;
+namespace com\skplanet\syruppay\token\claims\value;
 
-class Accept extends PropertyMapper implements Element
+class CashReceiptDisplay
 {
-    protected $type;
-    protected $conditions = array();
+    const YES = "YES";
+    const NO = "NO";
+    const DELEGATE_ADMIN = "DELEGATE_ADMIN";
 
-    public function getType()
+    public static function getCashReceiptDisplays()
     {
-        return $this->type;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    public function getConditions()
-    {
-        return $this->conditions;
-    }
-
-    public function addConditions($cardCode, $minPaymentAmt)
-    {
-        $this->conditions[] = array('cardCode' => $cardCode, 'minPaymentAmt' => $minPaymentAmt);
-        return $this;
-    }
-
-    function validRequired()
-    {
-        if (!isset($type)) {
-            throw new \InvalidArgumentException("Accept object couldn't be with null fields.");
-        }
-
-        if (!isset($this->conditions) || empty($this->conditions)) {
-            throw new \InvalidArgumentException("Conditions of Accept object couldn't be empty. you should contain with conditions of Accept object.");
-        }
+        return array(CashReceiptDisplay::YES, CashReceiptDisplay::NO, CashReceiptDisplay::DELEGATE_ADMIN);
     }
 }
-

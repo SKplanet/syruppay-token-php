@@ -21,46 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace com\skplanet\syruppay\token\claims\elements;
+
 
 use com\skplanet\syruppay\token\PropertyMapper;
 
-class Accept extends PropertyMapper implements Element
+class CardInstallmentInformation extends PropertyMapper
 {
-    protected $type;
-    protected $conditions = array();
+    protected $cardCode;
+    protected $monthlyInstallmentInfo;
 
-    public function getType()
+    public function __construct()
     {
-        return $this->type;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    public function getConditions()
-    {
-        return $this->conditions;
-    }
-
-    public function addConditions($cardCode, $minPaymentAmt)
-    {
-        $this->conditions[] = array('cardCode' => $cardCode, 'minPaymentAmt' => $minPaymentAmt);
-        return $this;
-    }
-
-    function validRequired()
-    {
-        if (!isset($type)) {
-            throw new \InvalidArgumentException("Accept object couldn't be with null fields.");
+        $argNumbers = func_num_args();
+        if ($argNumbers == 0) {
+            return;
+        } else if ($argNumbers == 2) {
+            $args = func_get_args();
+            $this->cardCode = $args[0];
+            $this->monthlyInstallmentInfo = $args[1];
+        } else {
+            throw new \InvalidArgumentException("usage : new CardInstallmentInformation(cardCode, monthlyInstallmentInfo)");
         }
+    }
 
-        if (!isset($this->conditions) || empty($this->conditions)) {
-            throw new \InvalidArgumentException("Conditions of Accept object couldn't be empty. you should contain with conditions of Accept object.");
-        }
+    public function getCardCode()
+    {
+        return $this->cardCode;
+    }
+
+    public function getMonthlyInstallmentInfo()
+    {
+        return $this->monthlyInstallmentInfo;
     }
 }
-

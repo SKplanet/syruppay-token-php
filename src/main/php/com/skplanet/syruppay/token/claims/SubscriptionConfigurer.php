@@ -25,24 +25,27 @@
 namespace com\skplanet\syruppay\token\claims;
 
 
-use com\skplanet\syruppay\token\PropertyMapper;
+use com\skplanet\syruppay\token\claims\elements\Plan;
+use com\skplanet\syruppay\token\claims\elements\RegistrationRestrictions;
+use com\skplanet\syruppay\token\claims\value\Interval;
+use com\skplanet\syruppay\token\claims\value\MatchedUser;
 
 class SubscriptionConfigurer extends AbstractTokenConfigurer
 {
     protected $mctSubscriptRequestId;
     protected $autoPaymentId;
     /**
-     * @var com\skplanet\syruppay\token\claims\SubscriptionPlan
+     * @var com\skplanet\syruppay\token\claims\elements\Plan
      */
     protected $plan;
     /**
-     * @var com\skplanet\syruppay\token\claims\RegistrationRestrictions
+     * @var com\skplanet\syruppay\token\claims\elements\RegistrationRestrictions
      */
     protected $registrationRestrictions;
 
     function __construct()
     {
-        $this->plan = new SubscriptionPlan();
+        $this->plan = new Plan();
         $this->registrationRestrictions = new RegistrationRestrictions();
     }
 
@@ -105,58 +108,3 @@ class SubscriptionConfigurer extends AbstractTokenConfigurer
     {
     }
 }
-
-class Interval
-{
-    const ONDEMAND = "ONDEMAND";
-    const MONTHLY = "MONTHLY";
-    const WEEKLY = "WEEKLY";
-    const BIWEEKLY = "BIWEEKLY";
-
-    static function getInverals()
-    {
-        return array(Interval::ONDEMAND, Interval::MONTHLY, Interval::WEEKLY, Interval::BIWEEKLY);
-    }
-}
-
-class SubscriptionPlan extends PropertyMapper
-{
-    protected $interval;
-    protected $name;
-
-    public function setInterval($interval)
-    {
-        $this->interval = $interval;
-    }
-
-    public function getInterval()
-    {
-        return $this->interval;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getName()
-    {
-        return $this->name;
-    }
-}
-
-class RegistrationRestrictions extends PropertyMapper
-{
-    protected $matchedUser;
-
-    public function setMatchedUser($matchedUser)
-    {
-        $this->matchedUser = $matchedUser;
-    }
-
-    public function getMatchedUser()
-    {
-        return $this->matchedUser;
-    }
-}
-

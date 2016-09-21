@@ -43,12 +43,25 @@ class MonthlyInstallment extends PropertyMapper implements Element
         return this;
     }
 
+    public function setCardCodes(array $cardCodes)
+    {
+        foreach ($cardCodes as $cardCode)
+        {
+            if (isset($this->cardCode))
+            {
+                $this->cardCode .= ':';
+            }
+            $this->cardCode .= $cardCode;
+        }
+        return $this;
+    }
+
     public function getConditions()
     {
         return $this->conditions;
     }
 
-    public function addConditionIncludeMax($min, $includeMin, $max, $includeMax, $monthlyInstallmentInfo)
+    public function addConditionMinAndMax($min, $includeMin, $max, $includeMax, $monthlyInstallmentInfo)
     {
         $m = array();
         $m["paymentAmtRange"] = ($includeMin ? "[" : "(") . $min . "-" . $max . ($includeMax ? "]" : ")");
@@ -57,7 +70,7 @@ class MonthlyInstallment extends PropertyMapper implements Element
         return $this;
     }
 
-    public function addCondition($min, $includeMin, $monthlyInstallmentInfo)
+    public function addConditionMin($min, $includeMin, $monthlyInstallmentInfo)
     {
         $m = array();
         $m["paymentAmtRange"] = ($includeMin ? "[" : "(") . $min . "-]";

@@ -98,12 +98,3 @@ class ProductDeliveryInfo extends PropertyMapper implements Element
         }
     }
 }
-
-class DeliveryType
-{
-    const PREPAID = 'PREPAID';
-    const FREE = 'FREE';
-    const DIY = 'DIY';
-    const QUICK = 'QUICK';
-    const PAYMENT_ON_DELIVERY = 'PAYMENT_ON_DELIVERY';
-}

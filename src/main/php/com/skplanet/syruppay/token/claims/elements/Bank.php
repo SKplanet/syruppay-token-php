@@ -21,46 +21,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace com\skplanet\syruppay\token\claims\elements;
 
 use com\skplanet\syruppay\token\PropertyMapper;
 
-class Accept extends PropertyMapper implements Element
+class Bank extends PropertyMapper
 {
-    protected $type;
-    protected $conditions = array();
+    protected $bankCode;
 
-    public function getType()
+    public function __construct()
     {
-        return $this->type;
-    }
-
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    public function getConditions()
-    {
-        return $this->conditions;
-    }
-
-    public function addConditions($cardCode, $minPaymentAmt)
-    {
-        $this->conditions[] = array('cardCode' => $cardCode, 'minPaymentAmt' => $minPaymentAmt);
-        return $this;
-    }
-
-    function validRequired()
-    {
-        if (!isset($type)) {
-            throw new \InvalidArgumentException("Accept object couldn't be with null fields.");
+        if (func_num_args() == 1)
+        {
+            $bankCodes = func_get_arg(0);
+            if (is_array($bankCodes))
+            {
+                foreach ($bankCodes as $bankCode)
+                {
+                    if (isset($this->bankCode))
+                        $this->bankCode .= ":";
+                    $this->bankCode .= $bankCode;
+                }
+            }
+            else
+            {
+                throw new \InvalidArgumentException("bankCode is array type. ex) array('bankCode', 'bankCode')");
+            }
         }
+    }
 
-        if (!isset($this->conditions) || empty($this->conditions)) {
-            throw new \InvalidArgumentException("Conditions of Accept object couldn't be empty. you should contain with conditions of Accept object.");
-        }
+    public function getBankCode()
+    {
+        return $this->bankCode;
     }
 }
-
