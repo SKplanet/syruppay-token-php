@@ -61,9 +61,3 @@ class Error extends PropertyMapper implements Element
         }
     }
 }
-
-class ErrorType
-{
-    const MAINTENACE = 'MAINTENACE';
-    const SYSTEM_ERR = 'SYSTEM_ERR';
-}

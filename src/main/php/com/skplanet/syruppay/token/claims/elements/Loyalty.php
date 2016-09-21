@@ -226,11 +226,3 @@ class Loyalty extends PropertyMapper implements Element
         }
     }
 }
-
-class LoyaltyId
-{
-    const POINT_OF_11ST = "www.11st.co.kr:point";
-    const MILEAGE_OF_11ST = "www.11st.co.kr:mileage";
-    const T_MEMBERSHIP = "www.sktmemebership.co.kr";
-    const OK_CASHBAG = "www.okcashbag.com";
-}

@@ -36,13 +36,13 @@ class Offer extends PropertyMapper implements Element
     protected $amountOff;
     protected $userSelectable;
     protected $orderApplied;
+    protected $applicableForNotMatchedUser;
     protected $exclusiveGroupId;
     protected $exclusiveGroupName;
     /**
-     * @var com\skplanet\syruppay\token\claims\Accept
+     * @var com\skplanet\syruppay\token\claims\elements\Accept
      */
     protected $accepted = array();
-    protected $applicableForNotMatchedUser;
 
     public function isApplicableForNotMatchedUser()
     {
@@ -178,9 +178,4 @@ class Offer extends PropertyMapper implements Element
             throw new \InvalidArgumentException("amountOff field should be bigger than 0. yours amountOff is : " . $this->amountOff);
         }
     }
-}
-
-class OfferType
-{
-    const DELIVERY_COUPON = 'DELIVERY_COUPON';
 }
