@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "syruppay/jose": "v1.0.2"
+        "syruppay/jose": "dev-dev/v1.1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.23"
@@ -24,7 +24,7 @@
 
     "autoload": {
         "psr-4": {
-            "":"src/main/php"
+            "":"syruppay"
         }
     }
 }

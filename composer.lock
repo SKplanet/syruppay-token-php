@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a809c00982fbed8fc0275a0f2b4e1575",
-    "content-hash": "afe2f349de17a81907231cf4ef896079",
+    "hash": "0d1adae9a3c6c61e85358729d9d5ff4a",
+    "content-hash": "90c010c945720381a96d48de0ef19ddf",
     "packages": [
         {
             "name": "phpseclib/phpseclib",
@@ -107,16 +107,16 @@
         },
         {
             "name": "syruppay/jose",
-            "version": "v1.0.2",
+            "version": "dev-dev/v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/skplanet/jose_php.git",
-                "reference": "cb6e4a3b987f7c345432d054a02da75ca9ea0f57"
+                "url": "https://github.com/SKplanet/jose_php.git",
+                "reference": "a395e7e5b6629b3c755103a34104a3760b7165a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skplanet/jose_php/zipball/cb6e4a3b987f7c345432d054a02da75ca9ea0f57",
-                "reference": "cb6e4a3b987f7c345432d054a02da75ca9ea0f57",
+                "url": "https://api.github.com/repos/SKplanet/jose_php/zipball/a395e7e5b6629b3c755103a34104a3760b7165a9",
+                "reference": "a395e7e5b6629b3c755103a34104a3760b7165a9",
                 "shasum": ""
             },
             "require": {
@@ -124,12 +124,13 @@
                 "phpseclib/phpseclib": "0.3.10"
             },
             "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.*",
                 "phpunit/phpunit": "4.8.23"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "": "src/main/php"
+                    "": "syruppay"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -153,7 +154,7 @@
                 "SyrupPay",
                 "syrup"
             ],
-            "time": "2016-02-15 07:11:21"
+            "time": "2016-09-21 23:26:13"
         }
     ],
     "packages-dev": [
@@ -1264,7 +1265,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "syruppay/jose": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
