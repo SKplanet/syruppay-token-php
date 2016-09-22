@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0d1adae9a3c6c61e85358729d9d5ff4a",
-    "content-hash": "90c010c945720381a96d48de0ef19ddf",
+    "hash": "e67773f6d7cc9e9c4fcdb54040c1c08c",
+    "content-hash": "b311ec28e7790516dfe1bbc57f464728",
     "packages": [
         {
             "name": "phpseclib/phpseclib",
@@ -107,16 +107,16 @@
         },
         {
             "name": "syruppay/jose",
-            "version": "dev-dev/v1.1.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SKplanet/jose_php.git",
-                "reference": "a395e7e5b6629b3c755103a34104a3760b7165a9"
+                "reference": "df6666a951e674ed2c9ebdfcff8aa7e58d24d8e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SKplanet/jose_php/zipball/a395e7e5b6629b3c755103a34104a3760b7165a9",
-                "reference": "a395e7e5b6629b3c755103a34104a3760b7165a9",
+                "url": "https://api.github.com/repos/SKplanet/jose_php/zipball/df6666a951e674ed2c9ebdfcff8aa7e58d24d8e6",
+                "reference": "df6666a951e674ed2c9ebdfcff8aa7e58d24d8e6",
                 "shasum": ""
             },
             "require": {
@@ -154,7 +154,7 @@
                 "SyrupPay",
                 "syrup"
             ],
-            "time": "2016-09-21 23:26:13"
+            "time": "2016-09-22 03:15:15"
         }
     ],
     "packages-dev": [
@@ -1265,9 +1265,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "syruppay/jose": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
