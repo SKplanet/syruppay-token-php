@@ -31,6 +31,7 @@ class MerchantUserConfigurer extends AbstractTokenConfigurer
     protected $extraUserId;
     protected $SSOCredential;
     protected $deviceIdentifier;
+    protected $SSOPolicy;
 
     public function getMctUserId()
     {
@@ -45,6 +46,11 @@ class MerchantUserConfigurer extends AbstractTokenConfigurer
     public function getSsoCredential()
     {
         return $this->SSOCredential;
+    }
+
+    public function getSsoPolicy()
+    {
+        return $this->SSOPolicy;
     }
 
     public function withSsoCredential($ssoCredential)
@@ -68,6 +74,11 @@ class MerchantUserConfigurer extends AbstractTokenConfigurer
     public function withDeviceIdentifier($deviceIdentifier)
     {
         $this->deviceIdentifier = $deviceIdentifier;
+        return $this;
+    }
+
+    public function isNotApplicableSso() {
+        $this->SSOPolicy = "NOT_APPLICABLE";
         return $this;
     }
 
