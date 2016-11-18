@@ -14,7 +14,7 @@
 ## Installation
 ### composer ([packagist](https://packagist.org/packages/syruppay/token))
 ```
-"syruppay/token": "v1.1.0"`
+"syruppay/token": "v1.1.1"`
 
 ```
 
