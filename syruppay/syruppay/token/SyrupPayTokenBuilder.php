@@ -22,23 +22,9 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
+require_once 'claims/elements/ElementValues.php';
 
-
-use syruppay\jose\Jose;
-use syruppay\jose\JoseBuilders;
-use syruppay\jose\JoseHeader;
-use syruppay\jose\JoseHeaderSpec;
-use syruppay\jose\jwa\Jwa;
-use syruppay\token\claims\MapToSyrupPayUserConfigurer;
-use syruppay\token\claims\MerchantUserConfigurer;
-use syruppay\token\claims\OrderConfigurer;
-use syruppay\token\claims\PayConfigurer;
-use syruppay\token\claims\SubscriptionConfigurer;
-use syruppay\token\jwt\SyrupPayToken;
-use syruppay\token\utils\JsonPrettyPrint;
-
-class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements ClaimBuilder, TokenBuilder
+class syruppay_token_SyrupPayTokenBuilder extends syruppay_token_AbstractConfiguredTokenBuilder implements syruppay_token_ClaimBuilder, syruppay_token_TokenBuilder
 {
     private $iss;
     private $nbf;
@@ -48,21 +34,21 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public static function uncheckValidationOfToken()
     {
-        SyrupPayTokenBuilder::$checkValidationOfToken = false;
+        self::$checkValidationOfToken = false;
     }
 
     public static function verify($token, $key)
     {
-        $jose = new Jose();
+        $jose = new syruppay_jose_Jose();
         $payload = $jose->configuration(
-            JoseBuilders::compactDeserializationBuilder()
+        syruppay_jose_JoseBuilders::compactDeserializationBuilder()
             ->serializedSource($token)
             ->key($key)
         )->deserialization();
 
-        $syrupPayToken = self::fromJson(new SyrupPayToken(), json_decode($payload));
+        $syrupPayToken = self::fromJson(new syruppay_token_jwt_SyrupPayToken(), json_decode($payload));
         if (self::$checkValidationOfToken && !$syrupPayToken->isValidInTime()) {
-            throw new \InvalidArgumentException(sprintf("%d as exp of this token is over at now as %d", $syrupPayToken->getExp(), time()));
+            throw new InvalidArgumentException(sprintf("%d as exp of this token is over at now as %d", $syrupPayToken->getExp(), time()));
         }
 
         return $syrupPayToken;
@@ -93,7 +79,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public function login()
     {
-        $merchantUserConfigurer = new MerchantUserConfigurer();
+        $merchantUserConfigurer = new syruppay_token_claims_MerchantUserConfigurer();
         $this->getOrApply($merchantUserConfigurer);
 
         return $merchantUserConfigurer;
@@ -101,7 +87,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public function signUp()
     {
-        $merchantUserConfigurer = new MerchantUserConfigurer();
+        $merchantUserConfigurer = new syruppay_token_claims_MerchantUserConfigurer();
         $this->getOrApply($merchantUserConfigurer);
 
         return $merchantUserConfigurer;
@@ -109,7 +95,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public function pay()
     {
-        $payConfigurer = new PayConfigurer();
+        $payConfigurer = new syruppay_token_claims_PayConfigurer();
         $this->getOrApply($payConfigurer);
 
         return $payConfigurer;
@@ -117,7 +103,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public function checkout()
     {
-        $orderConfigurer = new OrderConfigurer();
+        $orderConfigurer = new syruppay_token_claims_OrderConfigurer();
         $this->getOrApply($orderConfigurer);
 
         return $orderConfigurer;
@@ -125,7 +111,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public function mapToSyrupPayUser()
     {
-        $mapToSyrupPayUserConfigurer = new MapToSyrupPayUserConfigurer();
+        $mapToSyrupPayUserConfigurer = new syruppay_token_claims_MapToSyrupPayUserConfigurer();
         $this->getOrApply($mapToSyrupPayUserConfigurer);
 
         return $mapToSyrupPayUserConfigurer;
@@ -133,7 +119,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public function subscription()
     {
-        $subscription = new SubscriptionConfigurer();
+        $subscription = new syruppay_token_claims_SubscriptionConfigurer();
         $this->getOrApply($subscription);
 
         return $subscription;
@@ -152,10 +138,10 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
     protected function doBuild()
     {
         if (!isset($this->iss)) {
-            throw new \InvalidArgumentException("issuer couldn't be null. you should set of by SyrupPayTokenBuilder#of(String of)");
+            throw new InvalidArgumentException("issuer couldn't be null. you should set of by SyrupPayTokenBuilder#of(String of)");
         }
 
-        $jwt = new Jwt();
+        $jwt = new syruppay_token_jwt_SyrupPayToken();
         $jwt->setIss($this->iss);
         $jwt->setIat(time());
         $jwt->setExp($jwt->getIat() + ($this->expiredMinutes * 60));
@@ -167,13 +153,13 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
 
     public function generateTokenBy($secret)
     {
-        $jose = new Jose();
+        $jose = new syruppay_jose_Jose();
         return $jose->configuration(
-            JoseBuilders::JsonSignatureCompactSerializationBuilder()
-            ->header(new JoseHeader(
-                array(JoseHeaderSpec::ALG => Jwa::HS256,
-                    JoseHeaderSpec::TYP => 'JWT',
-                    JoseHeaderSpec::KID => $this->iss)))
+            syruppay_jose_JoseBuilders::JsonSignatureCompactSerializationBuilder()
+            ->header(new syruppay_jose_JoseHeader(
+                array(JOSE_HEADER_ALG => JWA_HS256,
+                    JOSE_HEADER_TYP => 'JWT',
+                    JOSE_HEADER_KID => $this->iss)))
             ->payload($this->toJson())
             ->key($secret)
         )->serialization();
@@ -184,7 +170,7 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         $propertyArray = array();
 
         $jwt = $this->build();
-        if (isset($jwt) && $jwt instanceof Jwt) {
+        if (isset($jwt) && $jwt instanceof syruppay_token_Jwt) {
             $propertyArray = array_merge($propertyArray, $jwt->__toArray());
         }
 
@@ -204,12 +190,9 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         return $json;
     }
 
-    public static function fromJson($dest, \stdClass $src)
+    public static function fromJson($dest, stdClass $src)
     {
-        $srcReflection = new \ReflectionObject($src);
-        $srcProperties = $srcReflection->getProperties();
-
-        $destReflection = new \ReflectionObject($dest);
+        $destReflection = new ReflectionObject($dest);
         foreach ($srcProperties as $srcProperty) {
             $propertyName = $srcProperty->getName();
             $propertyValue = $srcProperty->getValue($src);
@@ -222,13 +205,13 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
                     }
 
                     if (empty($className)) {
-                        throw new \InvalidArgumentException("No declared class name. There is annotaion '@var' missing at document comment: $propertyName");
+                        throw new InvalidArgumentException("No declared class name. There is annotaion '@var' missing at document comment: $propertyName");
                     }
 
                     $newClassObject = self::fromJson(new $className(), $propertyValue);
                     self::injectValue($dest, $propertyName, $newClassObject);
                 } else if (is_array($propertyValue)) {  //custom class list or primitive list
-                    $className = SyrupPayTokenBuilder::getAnnotation($dest, $propertyName);
+                    $className = self::getAnnotation($dest, $propertyName);
 
                     //case on primitive list
                     if (!isset($className) || empty($className)) {
@@ -253,9 +236,9 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         return $dest;
     }
 
-    private function getAnnotation($dest, $propertyName)
+    private static function getAnnotation($dest, $propertyName)
     {
-        $destReflection = new \ReflectionObject($dest);
+        $destReflection = new ReflectionObject($dest);
         $destProperty = $destReflection->getProperty($propertyName);
         $comment = $destProperty->getDocComment();
         if (isset($comment)) {
@@ -269,9 +252,9 @@ class SyrupPayTokenBuilder extends AbstractConfiguredTokenBuilder implements Cla
         return null;
     }
 
-    private function injectValue($dest, $propertyName, $value)
+    private static function injectValue($dest, $propertyName, $value)
     {
-        $destReflection = new \ReflectionObject($dest);
+        $destReflection = new ReflectionObject($dest);
         $destProperty = $destReflection->getProperty($propertyName);
         $destProperty->setAccessible(true);
         $destProperty->setValue($dest, $value);

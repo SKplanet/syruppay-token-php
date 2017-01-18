@@ -22,13 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-
-use syruppay\token\PropertyMapper;
-
-class ProductDeliveryInfo extends PropertyMapper implements Element
+class syruppay_token_claims_elements_ProductDeliveryInfo extends syruppay_token_PropertyMapper implements syruppay_token_claims_elements_Element
 {
     protected $deliveryType;
     protected $deliveryName;
@@ -94,7 +88,7 @@ class ProductDeliveryInfo extends PropertyMapper implements Element
     public function validRequired()
     {
         if (!isset($this->deliveryType) || !isset($this->deliveryName)) {
-            throw new \InvalidArgumentException("ProductDeliveryInfo object couldn't be with null fields. deliveryType : " . $this->deliveryType . ", deliveryName : " . $this->deliveryName);
+            throw new InvalidArgumentException("ProductDeliveryInfo object couldn't be with null fields. deliveryType : " . $this->deliveryType . ", deliveryName : " . $this->deliveryName);
         }
     }
 }

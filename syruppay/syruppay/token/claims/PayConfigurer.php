@@ -22,43 +22,34 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims;
-
-use syruppay\token\claims\elements\CardInstallmentInformation;
-use syruppay\token\claims\elements\PaymentInformationBySeller;
-use syruppay\token\claims\elements\PaymentRestriction;
-use syruppay\token\claims\elements\ShippingAddress;
-use syruppay\token\claims\value\CashReceiptDisplay;
-use syruppay\token\claims\value\MatchedUser;
-
-class PayConfigurer extends AbstractTokenConfigurer
+class syruppay_token_claims_PayConfigurer extends syruppay_token_claims_AbstractTokenConfigurer
 {
     protected $mctTransAuthId;
     protected $cashReceiptDisplay;
     protected $mctDefinedValue;
     /**
-     * @var syruppay\token\claims\elements\PaymentInformationBySeller
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_PaymentInformationBySeller
      */
     protected $paymentInfo;
     /**
-     * @var syruppay\token\claims\elements\PaymentRestriction
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_PaymentRestriction
      */
     protected $paymentRestrictions;
 
     function __construct()
     {
-        $this->paymentInfo = new PaymentInformationBySeller();
-        $this->paymentRestrictions = new PaymentRestriction();
+        $this->paymentInfo = new syruppay_token_claims_elements_PaymentInformationBySeller();
+        $this->paymentRestrictions = new syruppay_token_claims_elements_PaymentRestriction();
     }
 
     public static function isValidCountryAlpha2Code($code)
     {
-        return in_array(strpos($code, ":") ? substr($code, strtoupper(strpos($code, ":") + 1)) : strtoupper($code), Locale::getISOCountries());
+        return in_array(strpos($code, ":") ? substr($code, strtoupper(strpos($code, ":") + 1)) : strtoupper($code), syruppay_token_claims_Locale::getISOCountries());
     }
 
     public static function isValidLanguageCode($code)
     {
-        return in_array(Locale::getISOLanguages(), $code);
+        return in_array(syruppay_token_claims_Locale::getISOLanguages(), $code);
     }
 
     public function getMerchantTransactionAuthenticatedId()
@@ -84,8 +75,8 @@ class PayConfigurer extends AbstractTokenConfigurer
 
     public function withCashReceiptDisplay($cashReceiptDisplay)
     {
-        if (!in_array(strtoupper($cashReceiptDisplay), CashReceiptDisplay::getCashReceiptDisplays()))
-            throw new \InvalidArgumentException("cashReceiptDisplay should be one of 'YES' or 'NO'");
+        if (!in_array(strtoupper($cashReceiptDisplay), getCashReceiptDisplays()))
+            throw new InvalidArgumentException("cashReceiptDisplay should be one of 'YES' or 'NO'");
 
         $this->cashReceiptDisplay = $cashReceiptDisplay;
         return $this;
@@ -118,7 +109,7 @@ class PayConfigurer extends AbstractTokenConfigurer
             if (!($this->startsWith($productUrl, "http") ||
                 $this->startsWith($productUrl, "https"))
             ) {
-                throw new \InvalidArgumentException("product details should be contained http or https urls. check your input!");
+                throw new InvalidArgumentException("product details should be contained http or https urls. check your input!");
             }
         }
 
@@ -143,7 +134,7 @@ class PayConfigurer extends AbstractTokenConfigurer
         return $this;
     }
 
-    public function withShippingAddress(ShippingAddress $shippingAddress)
+    public function withShippingAddress(syruppay_token_claims_elements_ShippingAddress $shippingAddress)
     {
         $this->paymentInfo->setShippingAddress($shippingAddress->mapToStringForFds());
         return $this;
@@ -152,7 +143,7 @@ class PayConfigurer extends AbstractTokenConfigurer
     public function withAmount($paymentAmount)
     {
         if ($paymentAmount <= 0) {
-            throw new \InvalidArgumentException("Cannot be smaller than 0. Check yours input value : " . $paymentAmount);
+            throw new InvalidArgumentException("Cannot be smaller than 0. Check yours input value : " . $paymentAmount);
         }
 
         $this->paymentInfo->setPaymentAmt($paymentAmount);
@@ -186,7 +177,7 @@ class PayConfigurer extends AbstractTokenConfigurer
     public function withInstallmentPerCardInformation($cards)
     {
         $cardInfoList = array();
-        if (!is_array($cards) && $cards instanceof CardInstallmentInformation) {
+        if (!is_array($cards) && $cards instanceof syruppay_token_claims_elements_CardInstallmentInformation) {
             $cardInfoList[] = $cards;
         } else if (is_array($cards)) {
             $cardInfoList = $cards;
@@ -213,7 +204,7 @@ class PayConfigurer extends AbstractTokenConfigurer
         $paymentTypes = null;
         foreach ($paymentTypeArray as $paymentType)
         {
-            if (!isset($paymentTypes))
+            if (!empty($paymentTypes))
             {
                 $paymentTypes .= ';';
             }
@@ -227,9 +218,9 @@ class PayConfigurer extends AbstractTokenConfigurer
 
     public function withRestrictionUserType($matchedUser)
     {
-        if (MatchedUser::CI_MATCHED_ONLY != $matchedUser)
+        if (MATCHEDUSER_CI_MATCHED_ONLY != $matchedUser)
         {
-            throw new \InvalidArgumentException("matchedUser should be 'CI_MATCHED_ONLY");
+            throw new InvalidArgumentException("matchedUser should be 'CI_MATCHED_ONLY");
         }
 
         $this->paymentRestrictions->setMatchedUser($matchedUser);
@@ -252,14 +243,14 @@ class PayConfigurer extends AbstractTokenConfigurer
             !isset($lang) || !isset($currencyCode) ||
             !isset($paymentAmt) || $paymentAmt <= 0
         ) {
-            throw new \InvalidArgumentException("some of required fields is null or wrong. " .
+            throw new InvalidArgumentException("some of required fields is null or wrong. " .
                 "you should set orderIdOfMerchant : " . $this->mctTransAuthId .
                 ",  productTitle : " . $productTitle . ",  languageForDisplay : " . $lang .
                 ",  currency : " . $currencyCode . ",  amount : " . $paymentAmt);
         }
 
         if (strlen($this->mctTransAuthId) > 40) {
-            throw new \InvalidArgumentException("order id of merchant couldn't be longer than 40. but yours is " . strlen($this->mctTransAuthId));
+            throw new InvalidArgumentException("order id of merchant couldn't be longer than 40. but yours is " . strlen($this->mctTransAuthId));
         }
     }
 }

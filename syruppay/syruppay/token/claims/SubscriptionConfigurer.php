@@ -22,31 +22,23 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims;
-
-
-use syruppay\token\claims\elements\Plan;
-use syruppay\token\claims\elements\RegistrationRestrictions;
-use syruppay\token\claims\value\Interval;
-use syruppay\token\claims\value\MatchedUser;
-
-class SubscriptionConfigurer extends AbstractTokenConfigurer
+class syruppay_token_claims_SubscriptionConfigurer extends syruppay_token_claims_AbstractTokenConfigurer
 {
     protected $mctSubscriptRequestId;
     protected $autoPaymentId;
     /**
-     * @var syruppay\token\claims\elements\Plan
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_Plan
      */
     protected $plan;
     /**
-     * @var syruppay\token\claims\elements\RegistrationRestrictions
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_RegistrationRestrictions
      */
     protected $registrationRestrictions;
 
     function __construct()
     {
-        $this->plan = new Plan();
-        $this->registrationRestrictions = new RegistrationRestrictions();
+        $this->plan = new syruppay_token_claims_elements_Plan();
+        $this->registrationRestrictions = new syruppay_token_claims_elements_PaymentRestriction();
     }
 
     public function withMerchantSubscriptionId($mctSubscriptRequestId)
@@ -63,9 +55,9 @@ class SubscriptionConfigurer extends AbstractTokenConfigurer
 
     public function withInterval($interval)
     {
-        if (!in_array(strtoupper($interval), Interval::getInverals()))
+        if (!in_array(strtoupper($interval), getInterval()))
         {
-            throw new \InvalidArgumentException("interval value should be one of Interval constants. input interval is ".$interval);
+            throw new InvalidArgumentException("interval value should be one of Interval constants. input interval is ".$interval);
         }
 
         $this->plan->setInterval($interval);
@@ -80,10 +72,10 @@ class SubscriptionConfigurer extends AbstractTokenConfigurer
 
     public function withRestrictionUserType($matchedUser)
     {
-        if (MatchedUser::CI_MATCHED_ONLY != $matchedUser &&
-        MatchedUser::FIRST_SIGNUP_IN_LIFETIME_ONLY != $matchedUser)
+        if (MATCHEDUSER_CI_MATCHED_ONLY != $matchedUser &&
+                MATCHEDUSER_FIRST_SIGNUP_IN_LIFETIME_ONLY != $matchedUser)
         {
-            throw new \InvalidArgumentException("matchedUser should be 'CI_MATCHED_ONLY' or 'FIRST_SIGNUP_IN_LIFETIME_ONLY'");
+            throw new InvalidArgumentException("matchedUser should be 'CI_MATCHED_ONLY' or 'FIRST_SIGNUP_IN_LIFETIME_ONLY'");
         }
 
         $this->registrationRestrictions->setMatchedUser($matchedUser);

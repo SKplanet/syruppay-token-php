@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-
-abstract class AbstractConfiguredTokenBuilder extends AbstractClaimBuilder
+abstract class syruppay_token_AbstractConfiguredTokenBuilder extends syruppay_token_AbstractClaimBuilder
 {
     private $configurers = array();
 

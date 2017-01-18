@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-use syruppay\token\claims\value\PayableLocaleRule;
-use syruppay\token\PropertyMapper;
-
-class PaymentRestriction extends PropertyMapper
+class syruppay_token_claims_elements_PaymentRestriction extends syruppay_token_PropertyMapper
 {
     protected $cardIssuerRegion = "ALLOWED:KOR";
     protected $paymentType;
@@ -45,11 +40,11 @@ class PaymentRestriction extends PropertyMapper
 
     public function getPayableLocaleRule()
     {
-        if (in_array(strtoupper($this->cardInfoList), PayableLocaleRule::getPayableLocaleRules())) {
+        if (in_array(strtoupper($this->cardInfoList), getPayableLocaleRules())) {
             return $this->cardInfoList;
         }
 
-        throw new \InvalidArgumentException("cardIssuerRegion of this object is not matched with PaymentRestriction enumeration. check this : " . $this->cardIssuerRegion);
+        throw new InvalidArgumentException("cardIssuerRegion of this object is not matched with PaymentRestriction enumeration. check this : " . $this->cardIssuerRegion);
     }
 
     public function getPaymentType()

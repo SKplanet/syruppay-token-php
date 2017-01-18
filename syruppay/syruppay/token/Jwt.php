@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-
-use syruppay\token\utils\UUID;
-
-class Jwt extends PropertyMapper
+class syruppay_token_Jwt extends syruppay_token_PropertyMapper
 {
     protected $aud = "https://pay.syrup.co.kr";
     protected $typ = "jose";
@@ -40,7 +35,7 @@ class Jwt extends PropertyMapper
 
     function __construct()
     {
-        $this->jti = UUID::v4();
+        $this->jti = syruppay_token_utils_UUID::v4();
     }
 
     function setSub($sub)

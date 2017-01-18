@@ -21,11 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace syruppay\token\claims\elements;
 
-use syruppay\token\PropertyMapper;
-
-class Accept extends PropertyMapper implements Element
+class syruppay_token_claims_elements_Accept extends syruppay_token_PropertyMapper implements syruppay_token_claims_elements_Element
 {
     protected $type;
     protected $conditions = array();
@@ -55,11 +52,11 @@ class Accept extends PropertyMapper implements Element
     function validRequired()
     {
         if (!isset($type)) {
-            throw new \InvalidArgumentException("Accept object couldn't be with null fields.");
+            throw new InvalidArgumentException("Accept object couldn't be with null fields.");
         }
 
         if (!isset($this->conditions) || empty($this->conditions)) {
-            throw new \InvalidArgumentException("Conditions of Accept object couldn't be empty. you should contain with conditions of Accept object.");
+            throw new InvalidArgumentException("Conditions of Accept object couldn't be empty. you should contain with conditions of Accept object.");
         }
     }
 }

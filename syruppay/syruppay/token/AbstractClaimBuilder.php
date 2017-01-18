@@ -22,9 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-abstract class AbstractClaimBuilder implements ClaimBuilder
+abstract class syruppay_token_AbstractClaimBuilder implements syruppay_token_ClaimBuilder
 {
     private $isBuild = false;
     private $object;
@@ -38,14 +36,14 @@ abstract class AbstractClaimBuilder implements ClaimBuilder
             return $this->object;
         }
 
-        throw new AlreadyBuiltException("This object has already been built");
+        throw new syruppay_token_AlreadyBuiltException("This object has already been built");
     }
 
     public function getObject()
     {
         if (!isBuild)
         {
-            throw new InvalidStateException("This object has not been built");
+            throw new syruppay_token_InvalidStateException("This object has not been built");
         }
 
         return $this->object;

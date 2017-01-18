@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-
-interface TokenBuilder extends ClaimBuilder
+interface syruppay_token_TokenBuilder extends syruppay_token_ClaimBuilder
 {
     function getConfigurer($className);
     function removeConfigurer($className);

@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class MonthlyInstallment extends PropertyMapper implements Element
+class syruppay_token_claims_elements_MonthlyInstallment extends syruppay_token_PropertyMapper implements syruppay_token_claims_elements_Element
 {
     protected $cardCode;
     protected $conditions = array();
@@ -82,11 +77,11 @@ class MonthlyInstallment extends PropertyMapper implements Element
     public function validRequired()
     {
         if (!isset($this->cardCode)) {
-            throw new \InvalidArgumentException("MonthlyInstallment object couldn't be with null fields cardCode is null");
+            throw new InvalidArgumentException("MonthlyInstallment object couldn't be with null fields cardCode is null");
         }
 
         if (!isset($this->conditions) || empty($this->conditions)) {
-            throw new \InvalidArgumentException("Conditions of MonthlyInstallment object couldn't be empty. you should contain with conditions of MonthlyInstallment object by addCondition method.");
+            throw new InvalidArgumentException("Conditions of MonthlyInstallment object couldn't be empty. you should contain with conditions of MonthlyInstallment object by addCondition method.");
         }
     }
 }

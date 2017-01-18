@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class RegistrationRestrictions extends PropertyMapper
+class syruppay_token_claims_elements_RegistrationRestrictions extends syruppay_token_PropertyMapper
 {
     protected $matchedUser;
 

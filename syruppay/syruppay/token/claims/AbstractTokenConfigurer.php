@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims;
-
-
-use syruppay\token\ClaimConfigurerAdapter;
-
-abstract class AbstractTokenConfigurer extends ClaimConfigurerAdapter
+abstract class syruppay_token_claims_AbstractTokenConfigurer extends syruppay_token_ClaimConfigurerAdapter
 {
     public function disable()
     {

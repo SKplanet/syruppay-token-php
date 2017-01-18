@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-interface Element
+interface syruppay_token_claims_elements_Element
 {
     function validRequired();
 }

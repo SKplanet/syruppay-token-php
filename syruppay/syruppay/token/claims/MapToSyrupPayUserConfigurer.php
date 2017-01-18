@@ -22,16 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims;
-
-
-use syruppay\jose\Jose;
-use syruppay\jose\JoseBuilders;
-use syruppay\jose\JoseHeader;
-use syruppay\jose\JoseHeaderSpec;
-use syruppay\jose\jwa\Jwa;
-
-class MapToSyrupPayUserConfigurer extends AbstractTokenConfigurer
+class syruppay_token_claims_MapToSyrupPayUserConfigurer extends syruppay_token_claims_AbstractTokenConfigurer
 {
     protected $mappingType;
     protected $mappingValue;
@@ -68,26 +59,26 @@ class MapToSyrupPayUserConfigurer extends AbstractTokenConfigurer
 
             if (!isset($personal) || empty($kid) || empty($secret))
             {
-                throw new \InvalidArgumentException("Personal Object or kid or secret may be null.");
+                throw new InvalidArgumentException("Personal Object or kid or secret may be null.");
             }
 
             $json = json_encode($personal->__toArray());
 //            var_dump(JsonPrettyPrint::prettyPrint($json));
 
-            $jose = new Jose();
+            $jose = new syruppay_jose_Jose();
             $this->mappingValue = $jose->configuration(
-                JoseBuilders::JsonEncryptionCompactSerializationBuilder()
-                ->header(new JoseHeader(
-                    array(JoseHeaderSpec::ALG => Jwa::A256KW,
-                        JoseHeaderSpec::ENC => Jwa::A128CBC_HS256,
-                        JoseHeaderSpec::KID => $kid)))
+            syruppay_jose_JoseBuilders::JsonEncryptionCompactSerializationBuilder()
+                ->header(new syruppay_jose_JoseHeader(
+                    array(JOSE_HEADER_ALG => JWA_A256KW,
+                        JOSE_HEADER_ENG => JWA_A128CBC_HS256,
+                        JOSE_HEADER_KID => $kid)))
                 ->payload($json)
                 ->key($secret)
             )->serialization();
         }
         else
         {
-            throw new \InvalidArgumentException("Unknown parameter.");
+            throw new InvalidArgumentException("Unknown parameter.");
         }
 
         return $this;
@@ -108,7 +99,7 @@ class MapToSyrupPayUserConfigurer extends AbstractTokenConfigurer
     {
         if (!isset($this->mappingType) || !isset($this->mappingValue))
         {
-            throw new \InvalidArgumentException("fields to map couldn't be null. type : $this->mappingType value : $this->mappingValue");
+            throw new InvalidArgumentException("fields to map couldn't be null. type : $this->mappingType value : $this->mappingValue");
         }
     }
 }
