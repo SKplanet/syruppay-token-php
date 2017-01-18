@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-
-interface ClaimBuilder
+interface syruppay_token_ClaimBuilder
 {
     function build();
 }

@@ -22,11 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-use syruppay\token\PropertyMapper;
-
-class Bank extends PropertyMapper
+class syruppay_token_claims_elements_Bank extends syruppay_token_PropertyMapper
 {
     protected $bankCode;
 
@@ -46,7 +42,7 @@ class Bank extends PropertyMapper
             }
             else
             {
-                throw new \InvalidArgumentException("bankCode is array type. ex) array('bankCode', 'bankCode')");
+                throw new InvalidArgumentException("bankCode is array type. ex) array('bankCode', 'bankCode')");
             }
         }
     }

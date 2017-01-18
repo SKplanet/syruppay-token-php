@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-
-class InvalidStateException extends \Exception
+class syruppay_token_InvalidStateException extends Exception
 {
     public function __construct($message, $code = 0)
     {

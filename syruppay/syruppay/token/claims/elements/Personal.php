@@ -22,11 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-use syruppay\token\PropertyMapper;
-
-class Personal extends PropertyMapper
+class syruppay_token_claims_elements_Personal extends syruppay_token_PropertyMapper
 {
     protected $username;
     protected $lineNumber;
@@ -35,7 +31,7 @@ class Personal extends PropertyMapper
     protected $email;
     protected $ciHash;
     /**
-     * @var syruppay\token\claims\elements\PayableCard
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_PayableCard
      */
     protected $payableCard;
 
@@ -43,7 +39,7 @@ class Personal extends PropertyMapper
     {
         if (empty($username))
         {
-            throw new \InvalidArgumentException("username shouldn't be null and not empty.");
+            throw new InvalidArgumentException("username shouldn't be null and not empty.");
         }
 
         $this->username = $username;
@@ -54,7 +50,7 @@ class Personal extends PropertyMapper
     {
         if (empty($lineNumber))
         {
-            throw new \InvalidArgumentException("lineNumber shouldn't be null and not empty.");
+            throw new InvalidArgumentException("lineNumber shouldn't be null and not empty.");
         }
         $this->lineNumber = $lineNumber;
         return $this;
@@ -69,12 +65,12 @@ class Personal extends PropertyMapper
     public function setSsnFirst7Digit($ssnFirst7Digit)
     {
         if (empty($ssnFirst7Digit)) {
-            throw new \InvalidArgumentException("ssnFirst7Digit shouldn't be null and not empty.");
+            throw new InvalidArgumentException("ssnFirst7Digit shouldn't be null and not empty.");
         }
 
         if (strlen($ssnFirst7Digit) != 7)
         {
-            throw new \InvalidArgumentException("length of ssnFirst7Digit should be 7. yours inputs is : $ssnFirst7Digit");
+            throw new InvalidArgumentException("length of ssnFirst7Digit should be 7. yours inputs is : $ssnFirst7Digit");
         }
 
         $this->ssnFirst7Digit = $ssnFirst7Digit;
@@ -101,6 +97,6 @@ class Personal extends PropertyMapper
 
     public static function of()
     {
-        return new Personal();
+        return new syruppay_token_claims_elements_Personal();
     }
 }

@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-use syruppay\token\claims\value\CardType;
-use syruppay\token\PropertyMapper;
-
-class PayableCard extends PropertyMapper
+class syruppay_token_claims_elements_PayableCard extends syruppay_token_PropertyMapper
 {
     protected $cardNo;
     protected $expireDate;
@@ -42,7 +37,7 @@ class PayableCard extends PropertyMapper
     {
         if (empty($cardNo))
         {
-            throw new \InvalidArgumentException("cardNo shouldn't be null and not empty.");
+            throw new InvalidArgumentException("cardNo shouldn't be null and not empty.");
         }
 
         $this->cardNo = $cardNo;
@@ -53,7 +48,7 @@ class PayableCard extends PropertyMapper
     {
         if (empty($expireDate))
         {
-            throw new \InvalidArgumentException("expireDate shouldn't be null and not empty.");
+            throw new InvalidArgumentException("expireDate shouldn't be null and not empty.");
         }
 
         $this->expireDate = $expireDate;
@@ -64,7 +59,7 @@ class PayableCard extends PropertyMapper
     {
         if (empty($cardIssuer))
         {
-            throw new \InvalidArgumentException("cardIssuer shouldn't be null and not empty.");
+            throw new InvalidArgumentException("cardIssuer shouldn't be null and not empty.");
         }
 
         $this->cardIssuer = $cardIssuer;
@@ -75,7 +70,7 @@ class PayableCard extends PropertyMapper
     {
         if (empty($cardIssuerName))
         {
-            throw new \InvalidArgumentException("cardIssuerName shouldn't be null and not empty.");
+            throw new InvalidArgumentException("cardIssuerName shouldn't be null and not empty.");
         }
 
         $this->cardIssuerName = $cardIssuerName;
@@ -86,7 +81,7 @@ class PayableCard extends PropertyMapper
     {
         if (empty($cardName))
         {
-            throw new \InvalidArgumentException("cardNo shouldn't be null and not empty.");
+            throw new InvalidArgumentException("cardNo shouldn't be null and not empty.");
         }
 
         $this->cardName = $cardName;
@@ -103,7 +98,7 @@ class PayableCard extends PropertyMapper
     {
         if (empty($cardAcquirer))
         {
-            throw new \InvalidArgumentException("cardAcquirer shouldn't be null and not empty.");
+            throw new InvalidArgumentException("cardAcquirer shouldn't be null and not empty.");
         }
 
         $this->cardAcquirer = $cardAcquirer;
@@ -112,9 +107,9 @@ class PayableCard extends PropertyMapper
 
     public function setCardType($cardType)
     {
-        if (!in_array($cardType, CardType::getCardTypes()))
+        if (!in_array($cardType, getCardTypes()))
         {
-            throw new \InvalidArgumentException("cardType shouldn't be null and it should be one of CardType constants.");
+            throw new InvalidArgumentException("cardType shouldn't be null and it should be one of CardType constants.");
         }
 
         $this->cardType = $cardType;
@@ -123,7 +118,7 @@ class PayableCard extends PropertyMapper
 
     public static function of()
     {
-        return new PayableCard();
+        return new syruppay_token_claims_elements_PayableCard();
     }
 
 }

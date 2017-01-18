@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class Error extends PropertyMapper implements Element
+class syruppay_token_claims_elements_Error extends syruppay_token_PropertyMapper implements syruppay_token_claims_elements_Element
 {
     protected $type;
     protected $description;
@@ -57,7 +52,7 @@ class Error extends PropertyMapper implements Element
     public function validRequired()
     {
         if (!isset($this->type) || !isset($this->description)) {
-            throw new \InvalidArgumentException("Error object couldn't be with null fields type : ".$this->type.", description : ".$this->description);
+            throw new InvalidArgumentException("Error object couldn't be with null fields type : ".$this->type.", description : ".$this->description);
         }
     }
 }

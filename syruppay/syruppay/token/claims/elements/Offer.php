@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class Offer extends PropertyMapper implements Element
+class syruppay_token_claims_elements_Offer extends syruppay_token_PropertyMapper implements syruppay_token_claims_elements_Element
 {
     protected $id;
     protected $userActionCode;
@@ -40,7 +35,7 @@ class Offer extends PropertyMapper implements Element
     protected $exclusiveGroupId;
     protected $exclusiveGroupName;
     /**
-     * @var syruppay\token\claims\elements\Accept
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_Accept
      */
     protected $accepted = array();
 
@@ -129,7 +124,7 @@ class Offer extends PropertyMapper implements Element
     public function setAmountOff($amountOff)
     {
         if ($amountOff <= 0) {
-            throw new \InvalidArgumentException("amountOff should be bigger than 0. yours : " . $amountOff);
+            throw new InvalidArgumentException("amountOff should be bigger than 0. yours : " . $amountOff);
         }
 
         $this->amountOff = $amountOff;
@@ -172,10 +167,10 @@ class Offer extends PropertyMapper implements Element
     public function validRequired()
     {
         if (!isset($this->id) || !isset($this->name)) {
-            throw new \InvalidArgumentException("Offer object couldn't be with null fields id : " . $this->id . ", name : " . $this->name);
+            throw new InvalidArgumentException("Offer object couldn't be with null fields id : " . $this->id . ", name : " . $this->name);
         }
         if ($this->amountOff <= 0) {
-            throw new \InvalidArgumentException("amountOff field should be bigger than 0. yours amountOff is : " . $this->amountOff);
+            throw new InvalidArgumentException("amountOff field should be bigger than 0. yours amountOff is : " . $this->amountOff);
         }
     }
 }

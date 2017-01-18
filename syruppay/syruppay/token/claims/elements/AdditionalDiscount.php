@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class AdditionalDiscount extends PropertyMapper implements Element
+class syruppay_token_claims_elements_AdditionalDiscount extends syruppay_token_PropertyMapper implements syruppay_token_claims_elements_Element
 {
     protected $percentOff;
     protected $maxApplicableAmt;
@@ -40,7 +35,7 @@ class AdditionalDiscount extends PropertyMapper implements Element
     public function setPercentOff($percentOff)
     {
         if ($percentOff <= 0) {
-            throw new \InvalidArgumentException("percentOff field should be bigger than 0. yours percentOff is : " . $percentOff);
+            throw new InvalidArgumentException("percentOff field should be bigger than 0. yours percentOff is : " . $percentOff);
         }
         $this->percentOff = $percentOff;
         return $this;
@@ -54,7 +49,7 @@ class AdditionalDiscount extends PropertyMapper implements Element
     public function setMaxApplicableAmt($maxApplicableAmt)
     {
         if ($maxApplicableAmt <= 0) {
-            throw new \InvalidArgumentException("maxApplicableAmt field should be bigger than 0. yours maxApplicableAmt is : " . $maxApplicableAmt);
+            throw new InvalidArgumentException("maxApplicableAmt field should be bigger than 0. yours maxApplicableAmt is : " . $maxApplicableAmt);
         }
         $this->maxApplicableAmt = $maxApplicableAmt;
         return $this;
@@ -63,10 +58,10 @@ class AdditionalDiscount extends PropertyMapper implements Element
     public function validRequired()
     {
         if ($this->percentOff <= 0) {
-            throw new \InvalidArgumentException("percentOff field should be bigger than 0. yours percentOff is : " . $this->percentOff);
+            throw new InvalidArgumentException("percentOff field should be bigger than 0. yours percentOff is : " . $this->percentOff);
         }
         if ($this->maxApplicableAmt <= 0) {
-            throw new \InvalidArgumentException("maxApplicableAmt field should be bigger than 0. yours maxApplicableAmt is : " . $this->maxApplicableAmt);
+            throw new InvalidArgumentException("maxApplicableAmt field should be bigger than 0. yours maxApplicableAmt is : " . $this->maxApplicableAmt);
         }
     }
 }

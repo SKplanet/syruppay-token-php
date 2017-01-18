@@ -22,45 +22,40 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims;
-
-
-use syruppay\token\claims\elements\ProductDeliveryInfo;
-
-class OrderConfigurer extends AbstractTokenConfigurer
+class syruppay_token_claims_OrderConfigurer extends syruppay_token_claims_AbstractTokenConfigurer
 {
     protected $productPrice;
     protected $submallName;
     protected $privacyPolicyRequirements;
     protected $mainShippingAddressSettingDisabled;
     /**
-     * @var syruppay\token\claims\elements\ProductDeliveryInfo
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_ProductDeliveryInfo
      */
     protected $productDeliveryInfo;
     /**
-     * @var syruppay\token\claims\elements\Offer
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_Offer
      */
     protected $offerList = array();
     /**
-     * @var syruppay\token\claims\elements\Loyalty
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_Loyalty
      */
     protected $loyaltyList = array();
     /**
-     * @var syruppay\token\claims\elements\ShippingAddress
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_ShippingAddress
      */
     protected $shippingAddressList = array();
     /**
-     * @var syruppay\token\claims\elements\MonthlyInstallment
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_MonthlyInstallment
      */
     protected $monthlyInstallmentList = array();
     /**
-     * @var syruppay\token\claims\elements\Bank
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_Bank
      */
     protected $bankInfoList = array();
 
     function __construct()
     {
-        $this->productDeliveryInfo = new ProductDeliveryInfo();
+        $this->productDeliveryInfo = new syruppay_token_claims_elements_ProductDeliveryInfo();
     }
 
     public function getMonthlyInstallmentList()
@@ -101,31 +96,31 @@ class OrderConfigurer extends AbstractTokenConfigurer
     function validRequired()
     {
         if ($this->productPrice <= 0) {
-            throw new \InvalidArgumentException("product price field couldn't be zero. check yours input value : " . $this->productPrice);
+            throw new InvalidArgumentException("product price field couldn't be zero. check yours input value : " . $this->productPrice);
         }
         if (!isset($this->productDeliveryInfo)) {
-            throw new \InvalidArgumentException("you should contain ProductDeliveryInfo object.");
+            throw new InvalidArgumentException("you should contain ProductDeliveryInfo object.");
         }
 
         $this->productDeliveryInfo->validRequired();
 
         foreach ($this->offerList as $offer) {
-            if (is_object($offer) && $offer instanceof Offer) {
+            if (is_object($offer) && $offer instanceof syruppay_token_claims_elements_Offer) {
                 $offer->validRequired();
             }
         }
         foreach ($this->loyaltyList as $loyalty) {
-            if (is_object($loyalty) && $loyalty instanceof Loyalty) {
+            if (is_object($loyalty) && $loyalty instanceof syruppay_token_claims_elements_Loyalty) {
                 $loyalty->validRequired();
             }
         }
         foreach ($this->shippingAddressList as $shippingAddress) {
-            if (is_object($shippingAddress) && $shippingAddress instanceof ShippingAddress) {
+            if (is_object($shippingAddress) && $shippingAddress instanceof syruppay_token_claims_elements_ShippingAddress) {
                 $shippingAddress->validRequiredToCheckout();
             }
         }
         foreach ($this->monthlyInstallmentList as $monthlyInstallment) {
-            if (is_object($monthlyInstallment) && $monthlyInstallment instanceof MonthlyInstallment) {
+            if (is_object($monthlyInstallment) && $monthlyInstallment instanceof syruppay_token_claims_elements_MonthlyInstallment) {
                 $monthlyInstallment->validRequired();
             }
         }
@@ -152,7 +147,7 @@ class OrderConfigurer extends AbstractTokenConfigurer
     public function withShippingAddresses(array $shippingAddresses)
     {
         foreach ($shippingAddresses as $shippingAddress) {
-            if (is_object($shippingAddress) && $shippingAddress instanceof ShippingAddress) {
+            if (is_object($shippingAddress) && $shippingAddress instanceof syruppay_token_claims_elements_ShippingAddress) {
                 $shippingAddress->validRequiredToCheckout();
             }
         }
@@ -163,7 +158,7 @@ class OrderConfigurer extends AbstractTokenConfigurer
     public function withProductPrice($productPrice)
     {
         if ($productPrice <= 0) {
-            throw new \InvalidArgumentException("Cannot be smaller than 0. Check yours input value : " . $this->productPrice);
+            throw new InvalidArgumentException("Cannot be smaller than 0. Check yours input value : " . $this->productPrice);
         }
         $this->productPrice = $productPrice;
         return $this;
@@ -175,7 +170,7 @@ class OrderConfigurer extends AbstractTokenConfigurer
         return $this;
     }
 
-    public function withProductDeliveryInfo(ProductDeliveryInfo $productDeliveryInfo)
+    public function withProductDeliveryInfo(syruppay_token_claims_elements_ProductDeliveryInfo $productDeliveryInfo)
     {
         $this->productDeliveryInfo = $productDeliveryInfo;
         return $this;
@@ -184,7 +179,7 @@ class OrderConfigurer extends AbstractTokenConfigurer
     public function withOffers(array $offers)
     {
         foreach ($offers as $offer) {
-            if (is_object($offer) && $offer instanceof Offer) {
+            if (is_object($offer) && $offer instanceof syruppay_token_claims_elements_Offer) {
                 $offer->validRequired();
             }
         }
@@ -195,7 +190,7 @@ class OrderConfigurer extends AbstractTokenConfigurer
     public function withLoyalties(array $loyalties)
     {
         foreach ($loyalties as $loyalty) {
-            if (is_object($loyalty) && $loyalty instanceof Loyalty) {
+            if (is_object($loyalty) && $loyalty instanceof syruppay_token_claims_elements_Loyalty) {
                 $loyalty->validRequired();
             }
         }
@@ -206,7 +201,7 @@ class OrderConfigurer extends AbstractTokenConfigurer
     public function withMonthlyInstallments(array $monthlyInstallments)
     {
         foreach ($monthlyInstallments as $monthlyInstallment) {
-            if (is_object($monthlyInstallment) && $monthlyInstallment instanceof MonthlyInstallment) {
+            if (is_object($monthlyInstallment) && $monthlyInstallment instanceof syruppay_token_claims_elements_MonthlyInstallment) {
                 $monthlyInstallment->validRequired();
             }
         }
