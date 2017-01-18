@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\utils;
-
-
-class UUID
+class syruppay_token_utils_UUID
 {
     public static function v4() {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',

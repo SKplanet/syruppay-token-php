@@ -22,15 +22,10 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class PaymentInformationBySeller extends PropertyMapper
+class syruppay_token_claims_elements_PaymentInformationBySeller extends syruppay_token_PropertyMapper
 {
     /**
-     * @var syruppay\token\claims\elements\CardInstallmentInformation
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_CardInstallmentInformation
      */
     protected $productTitle;
     protected $productUrls = array();

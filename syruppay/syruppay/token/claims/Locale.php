@@ -22,9 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims;
-
-class Locale
+class syruppay_token_claims_Locale
 {
     private static $ISOLang = array("aa", "ab", "ae", "af", "ak", "am", "an", "ar", "as", "av", "ay", "az", "ba", "be", "bg", "bh", "bi", "bm", "bn", "bo",
         "br", "bs", "ca", "ce", "ch", "co", "cr", "cs", "cu", "cv", "cy", "da", "de", "dv", "dz", "ee", "el", "en", "eo", "es",

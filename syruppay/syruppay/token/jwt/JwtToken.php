@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\jwt;
-
-
-interface JwtToken
+interface syruppay_token_jwt_JwtToken
 {
     function getIss();
     function getSub();

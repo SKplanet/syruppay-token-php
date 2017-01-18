@@ -9,12 +9,12 @@
 
 ## Getting Start
 ## PHP version
-=> PHP 5.3.3
+=> PHP 5.2.0
 
 ## Installation
 ### composer ([packagist](https://packagist.org/packages/syruppay/token))
 ```
-"syruppay/token": "v1.1.1"`
+"syruppay/token": "v1.1.2"`
 
 ```
 
@@ -24,7 +24,7 @@
 ##### Code
 ```php
 // 사용자 로그인, 환경 설정 접근 시 
-$builder = new SyrupPayTokenBuilder();
+$builder = new syruppay_token_SyrupPayTokenBuilder();
 $token = $builder->of("가맹점 ID")
     ->login()
     ->withMerchantUserId("가맹점의 회원 ID 또는 식별자")
@@ -35,7 +35,7 @@ $token = $builder->of("가맹점 ID")
     
     
 // 회원 가입 시
-$builder = new SyrupPayTokenBuilder();
+$builder = new syruppay_token_SyrupPayTokenBuilder();
 $token = $builder->of("가맹점 ID")
     ->signUp()
     ->withMerchantUserId("가맹점의 회원 ID 또는 식별자")
@@ -70,7 +70,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ilx1YWMwMFx1YjlmOVx1YzgxMCBJRCJ9.eyJ
 ### 결재 인증을 위한 Syrup Pay Token 생성
 ##### Code
 ```php
-$builder = new SyrupPayTokenBuilder();
+$builder = new syruppay_token_SyrupPayTokenBuilder();
 $token = $builder->of("가맹점 ID")
     ->pay()
     ->withOrderIdOfMerchant("가맹점에서 관리하는 주문 ID")
@@ -79,15 +79,15 @@ $token = $builder->of("가맹점 ID")
         "http://deal.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=1122841340",
         "http://deal.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=1265508741"
     ))
-    ->withLanguageForDisplay(Language::KO)
+    ->withLanguageForDisplay(LANGUAGE_KO)
     ->withAmount(50000)
-    ->withCurrency(Currency::KRW)
-    ->withShippingAddress(new ShippingAddress("137-332", "서초구 잠원동 하나아파트", "1동 1호", "서울", "", "kr"))
+    ->withCurrency(CURRENCY_KRW)
+    ->withShippingAddress(new syruppay_token_claims_elements_ShippingAddress("137-332", "서초구 잠원동 하나아파트", "1동 1호", "서울", "", "kr"))
     ->withDeliveryPhoneNumber("01011112222")
     ->withDeliveryName("배송 수신자")
-    ->withInstallmentPerCardInformation(new CardInstallmentInformation("카드구분 코드", "할부정보. ex. NN1;NN2;YY3;YY4;YY5;NH6"))
+    ->withInstallmentPerCardInformation(new syruppay_token_claims_elements_CardInstallmentInformation("카드구분 코드", "할부정보. ex. NN1;NN2;YY3;YY4;YY5;NH6"))
     ->withBeAbleToExchangeToCash(false)
-    ->withPayableRuleWithCard(PayableLocaleRule::ONLY_ALLOWED_KOR)
+    ->withPayableRuleWithCard(PAYABLELOCALERULE_ONLY_ALLOWED_KOR)
     ->next()
     ->generateTokenBy("가맹점에게 전달한 비밀키");
 ```
@@ -137,13 +137,13 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ilx1YWMwMFx1YjlmOVx1YzgxMCBJRCJ9.eyJ
 
 ### 토큰 복호화
 ```php
-$token = SyrupPayTokenBuilder::verify("토큰", "가맹점에게 전달한 비밀키");
+$token = syruppay_token_SyrupPayTokenBuilder::verify("토큰", "가맹점에게 전달한 비밀키");
 ```
 ### 참고 사항
 #### 이용하고자 하는 시럽페이 서비스 기능이 복합적인 경우 중첩하여 사용 가능하다.
 ##### 상황 1. 시럽페이 가입 여부를 모르는 상태에서 결제 하고자 하는 경우 (회원가입, 로그인, 결제 가능 토큰)
 ```php
-$builder = new SyrupPayTokenBuilder();
+$builder = new syruppay_token_SyrupPayTokenBuilder();
 $token = $builder->of("가맹점 ID")
     ->signUp()
     ->withMerchantUserId("가맹점의 회원 ID 또는 식별자")
@@ -156,22 +156,22 @@ $token = $builder->of("가맹점 ID")
         "http://deal.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=1122841340",
         "http://deal.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=1265508741"
     )) // Optional
-    ->withLanguageForDisplay(Language::KO)
+    ->withLanguageForDisplay(LANGUAGE_KO)
     ->withAmount(50000)
-    ->withCurrency(Currency::KRW)
-    ->withShippingAddress(new ShippingAddress("137-332", "서초구 잠원동 하나아파트", "1동 1호", "서울", "", "kr")) // Optional
+    ->withCurrency(CURRENCY_KRW)
+    ->withShippingAddress(new syruppay_token_claims_elements_ShippingAddress("137-332", "서초구 잠원동 하나아파트", "1동 1호", "서울", "", "kr")) // Optional
     ->withDeliveryPhoneNumber("01011112222") // Optional
     ->withDeliveryName("배송 수신자") // Optional
-    ->withInstallmentPerCardInformation(new CardInstallmentInformation("카드구분 코드", "할부정보. ex. NN1;NN2;YY3;YY4;YY5;NH6")) // Optional
+    ->withInstallmentPerCardInformation(new syruppay_token_claims_elements_CardInstallmentInformation("카드구분 코드", "할부정보. ex. NN1;NN2;YY3;YY4;YY5;NH6")) // Optional
     ->withBeAbleToExchangeToCash(false) // Optional
-    ->withPayableRuleWithCard(PayableLocaleRule::ONLY_ALLOWED_KOR) // Optional
+    ->withPayableRuleWithCard(PAYABLELOCALERULE_ONLY_ALLOWED_KOR) // Optional
     ->next()
     ->generateTokenBy("가맹점에게 전달한 비밀키");
 ```
 
 ##### 상황 2. 시럽페이에 자동 로그인 후 결제를 하고자 하는 경우 (자동 로그인, 결제 가능 토큰)
 ```php
-$builder = new SyrupPayTokenBuilder();
+$builder = new syruppay_token_SyrupPayTokenBuilder();
 $token = $builder->of("가맹점 ID")
     ->login()
     ->withMerchantUserId("가맹점의 회원 ID 또는 식별자")
@@ -185,15 +185,15 @@ $token = $builder->of("가맹점 ID")
         "http://deal.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=1122841340",
         "http://deal.11st.co.kr/product/SellerProductDetail.tmall?method=getSellerProductDetail&prdNo=1265508741"
     )) // Optional
-    ->withLanguageForDisplay(Language::KO)
+    ->withLanguageForDisplay(LANGUAGE_KO)
     ->withAmount(50000)
-    ->withCurrency(Currency::KRW)
-    ->withShippingAddress(new ShippingAddress("137-332", "서초구 잠원동 하나아파트", "1동 1호", "서울", "", "kr")) // Optional
+    ->withCurrency(CURRENCY_KRW)
+    ->withShippingAddress(new syruppay_token_claims_elements_ShippingAddress("137-332", "서초구 잠원동 하나아파트", "1동 1호", "서울", "", "kr")) // Optional
     ->withDeliveryPhoneNumber("01011112222") // Optional
     ->withDeliveryName("배송 수신자") // Optional
-    ->withInstallmentPerCardInformation(new CardInstallmentInformation("카드구분 코드", "할부정보. ex. NN1;NN2;YY3;YY4;YY5;NH6")) // Optional
+    ->withInstallmentPerCardInformation(new syruppay_token_claims_elements_CardInstallmentInformation("카드구분 코드", "할부정보. ex. NN1;NN2;YY3;YY4;YY5;NH6")) // Optional
     ->withBeAbleToExchangeToCash(false) // Optional
-    ->withPayableRuleWithCard(PayableLocaleRule::ONLY_ALLOWED_KOR) // Optional
+    ->withPayableRuleWithCard(PAYABLELOCALERULE_ONLY_ALLOWED_KOR) // Optional
     ->withMerchantDefinedValue('{"id_1":"value", "id_2":2}')    // Optional, 1k 제한
     ->next()
     ->generateTokenBy("가맹점에게 전달한 비밀키");
@@ -207,7 +207,7 @@ $token = $builder->of("가맹점 ID")
 Syrup Pay 사용자에 대한 정보를 조회하여 Syrup Pay 수동 로그인 시 ID 자동 입력과 같은 추가적인 기능을 수행할 수 있도록 매칭이 되는 정보를 설정하고 토큰을 생성합니다.
 ##### Java Code
 ```php
-$builder = new SyrupPayTokenBuilder();
+$builder = new syruppay_token_SyrupPayTokenBuilder();
 $token = $builder->of("가맹점 ID")
     ->login()
     ->withMerchantUserId("가맹점의 회원 ID 또는 식별자")
@@ -215,7 +215,7 @@ $token = $builder->of("가맹점 ID")
     ->withSsoCredential("SSO 를 발급 받았을 경우 입력")
     ->next()
     ->mapToSyrupPayUser()
-    ->withType(MappingType::CI_MAPPED_KEY)
+    ->withType(MAPPINGTYPE_CI_MAPPED_KEY)
     ->withValue("4987234")
     ->next()
     ->generateTokenBy("가맹점에게 전달한 비밀키");

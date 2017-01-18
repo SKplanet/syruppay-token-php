@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-
-class AlreadyBuiltException extends \Exception
+class syruppay_token_AlreadyBuiltException extends Exception
 {
     public function __construct($message, $code = 0)
     {

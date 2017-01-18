@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims;
-
-
-class MerchantUserConfigurer extends AbstractTokenConfigurer
+class syruppay_token_claims_MerchantUserConfigurer extends syruppay_token_claims_AbstractTokenConfigurer
 {
     protected $mctUserId;
     protected $extraUserId;
@@ -91,7 +88,7 @@ class MerchantUserConfigurer extends AbstractTokenConfigurer
     {
         if (!isset($this->mctUserId))
         {
-            throw new \InvalidArgumentException("when you try to login or sign up, merchant user id couldn't be null. you should set merchant user id  by SyrupPayTokenHandler->login()->withMerchantUserId(String) or SyrupPayTokenHandler->signup()->withMerchantUserId(String)");
+            throw new InvalidArgumentException("when you try to login or sign up, merchant user id couldn't be null. you should set merchant user id  by SyrupPayTokenHandler->login()->withMerchantUserId(String) or SyrupPayTokenHandler->signup()->withMerchantUserId(String)");
         }
     }
 }

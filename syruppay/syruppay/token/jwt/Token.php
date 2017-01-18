@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\jwt;
-
-
-interface Token extends JwtToken
+interface syruppay_token_jwt_Token extends syruppay_token_jwt_JwtToken
 {
     function getLoginInfo();
     function getTransactionInfo();

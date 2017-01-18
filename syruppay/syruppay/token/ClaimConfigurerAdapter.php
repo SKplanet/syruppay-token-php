@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-
-abstract class ClaimConfigurerAdapter extends PropertyMapper implements ClaimConfigurer
+abstract class syruppay_token_ClaimConfigurerAdapter extends syruppay_token_PropertyMapper implements syruppay_token_ClaimConfigurer
 {
     private $builder;
 
@@ -34,7 +31,7 @@ abstract class ClaimConfigurerAdapter extends PropertyMapper implements ClaimCon
 
     public function next()
     {
-        $builder = new SyrupPayTokenBuilder();
+        $builder = new syruppay_token_SyrupPayTokenBuilder();
         $builder = $this->getBuilder();
 
         return $builder;
@@ -44,7 +41,7 @@ abstract class ClaimConfigurerAdapter extends PropertyMapper implements ClaimCon
     {
         if (!isset($this->builder))
         {
-            throw new InvalidStateException("builder cannot be null");
+            throw new syruppay_token_InvalidStateException("builder cannot be null");
         }
 
         return $this->builder;

@@ -22,11 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\jwt;
-
-use syruppay\token\claims\PayConfigurer;
-
-class SyrupPayToken implements Token
+class syruppay_token_jwt_SyrupPayToken implements syruppay_token_jwt_Token
 {
     private $aud = "https://pay.syrup.co.kr";
     private $typ = "jose";
@@ -38,19 +34,19 @@ class SyrupPayToken implements Token
     private $sub;
 
     /**
-     * @var syruppay\token\claims\MerchantUserConfigurer
+     * @var syruppay\token\claims\syruppay_token_claims_MerchantUserConfigurer
      */
     private $loginInfo;
     /**
-     * @var syruppay\token\claims\PayConfigurer
+     * @var syruppay\token\claims\syruppay_token_claims_PayConfigurer
      */
     private $transactionInfo;
     /**
-     * @var syruppay\token\claims\MapToSyrupPayUserConfigurer
+     * @var syruppay\token\claims\syruppay_token_claims_MapToSyrupPayUserConfigurer
      */
     private $userInfoMapper;
     /**
-     * @var syruppay\token\claims\OrderConfigurer
+     * @var syruppay\token\claims\syruppay_token_claims_OrderConfigurer
      */
     private $checkoutInfo;
 
@@ -166,7 +162,7 @@ class SyrupPayToken implements Token
     public function getTransactionInfo()
     {
         if (!isset($this->transactionInfo)) {
-            $this->transactionInfo = new PayConfigurer();
+            $this->transactionInfo = new syruppay_token_claims_PayConfigurer();
         }
         return $this->transactionInfo;
     }

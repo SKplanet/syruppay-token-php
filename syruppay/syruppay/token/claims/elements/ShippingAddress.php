@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-use syruppay\token\claims\PayConfigurer;
-use syruppay\token\PropertyMapper;
-
-class ShippingAddress extends PropertyMapper
+class syruppay_token_claims_elements_ShippingAddress extends syruppay_token_PropertyMapper
 {
     protected $id;
     protected $userActionCode;
@@ -59,7 +54,7 @@ class ShippingAddress extends PropertyMapper
             $this->state = $args[4];
             $this->countryCode = $this->setCountryCode($args[5])->getCountryCode();
         } else {
-            throw new \InvalidArgumentException("usage : new ShippingAddress(zipCode, mainAddress, detailAddress, city, state, countryCode)");
+            throw new InvalidArgumentException("usage : new ShippingAddress(zipCode, mainAddress, detailAddress, city, state, countryCode)");
         }
     }
 
@@ -103,8 +98,8 @@ class ShippingAddress extends PropertyMapper
 
     public function setCountryCode($countryCode)
     {
-        if (!PayConfigurer::isValidCountryAlpha2Code($countryCode)) {
-            throw new \InvalidArgumentException("countryCode should meet the specifications of ISO-3166 Alpha2(as KR, US) except prefix like a2. yours : " . $this->countryCode);
+        if (!syruppay_token_claims_PayConfigurer::isValidCountryAlpha2Code($countryCode)) {
+            throw new InvalidArgumentException("countryCode should meet the specifications of ISO-3166 Alpha2(as KR, US) except prefix like a2. yours : " . $this->countryCode);
         }
         $this->countryCode = strtolower($countryCode);
         return $this;
@@ -184,7 +179,7 @@ class ShippingAddress extends PropertyMapper
     public function setRecipientPhoneNumber($recipientPhoneNumber)
     {
         if (!isset($recipientPhoneNumber) || !preg_match_all('/^([0-9]*)$/', $recipientPhoneNumber, $match)) {
-            throw new \InvalidArgumentException("phone number should be contained numbers. remove characters as '-'. yours : " . $recipientPhoneNumber);
+            throw new InvalidArgumentException("phone number should be contained numbers. remove characters as '-'. yours : " . $recipientPhoneNumber);
         }
 
         $this->recipientPhoneNumber = $recipientPhoneNumber;
@@ -247,15 +242,15 @@ class ShippingAddress extends PropertyMapper
             !isset($this->mainAddress) || !isset($this->detailAddress) ||
             !isset($this->recipientName) || !isset($this->recipientPhoneNumber)
         ) {
-            throw new \InvalidArgumentException("ShippingAddress object to checkout couldn't be with null fields. id : " . $this->id . ", name : " . $this->name . ", countryCode : " . $this->countryCode . ", zipCode : " . $this->zipCode . ", mainAddress : " . $this->mainAddress . ", detailAddress : " . $this->detailAddress . ", recipientName : " . $this->recipientName . ", recipientPhoneNumber : " . $this->recipientPhoneNumber);
+            throw new InvalidArgumentException("ShippingAddress object to checkout couldn't be with null fields. id : " . $this->id . ", name : " . $this->name . ", countryCode : " . $this->countryCode . ", zipCode : " . $this->zipCode . ", mainAddress : " . $this->mainAddress . ", detailAddress : " . $this->detailAddress . ", recipientName : " . $this->recipientName . ", recipientPhoneNumber : " . $this->recipientPhoneNumber);
         }
 
-        if (!PayConfigurer::isValidCountryAlpha2Code($this->countryCode)) {
-            throw new \InvalidArgumentException("countryCode should meet the specifications of ISO-3166 Alpha2(as KR, US) except prefix like a2. yours : " . $this->countryCode);
+        if (!syruppay_token_claims_PayConfigurer::isValidCountryAlpha2Code($this->countryCode)) {
+            throw new InvalidArgumentException("countryCode should meet the specifications of ISO-3166 Alpha2(as KR, US) except prefix like a2. yours : " . $this->countryCode);
         }
 
         if ($this->defaultDeliveryCost <= 0) {
-            throw new \InvalidArgumentException("defaultDeliveryCost field should be bigger than 0. yours : " . $this->defaultDeliveryCost);
+            throw new InvalidArgumentException("defaultDeliveryCost field should be bigger than 0. yours : " . $this->defaultDeliveryCost);
         }
     }
 }

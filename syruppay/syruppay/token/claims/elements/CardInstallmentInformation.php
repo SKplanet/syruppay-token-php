@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class CardInstallmentInformation extends PropertyMapper
+class syruppay_token_claims_elements_CardInstallmentInformation extends syruppay_token_PropertyMapper
 {
     protected $cardCode;
     protected $monthlyInstallmentInfo;
@@ -42,7 +37,7 @@ class CardInstallmentInformation extends PropertyMapper
             $this->cardCode = $args[0];
             $this->monthlyInstallmentInfo = $args[1];
         } else {
-            throw new \InvalidArgumentException("usage : new CardInstallmentInformation(cardCode, monthlyInstallmentInfo)");
+            throw new InvalidArgumentException("usage : new CardInstallmentInformation(cardCode, monthlyInstallmentInfo)");
         }
     }
 

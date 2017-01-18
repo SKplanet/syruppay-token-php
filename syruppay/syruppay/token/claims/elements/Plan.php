@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class Plan extends PropertyMapper
+class syruppay_token_claims_elements_Plan extends syruppay_token_PropertyMapper
 {
     protected $interval;
     protected $name;

@@ -22,10 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token;
-
-
-class PropertyMapper
+class syruppay_token_PropertyMapper
 {
     public function __toArray()
     {

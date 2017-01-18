@@ -22,12 +22,7 @@
  * THE SOFTWARE.
  */
 
-namespace syruppay\token\claims\elements;
-
-
-use syruppay\token\PropertyMapper;
-
-class Loyalty extends PropertyMapper implements Element
+class syruppay_token_claims_elements_Loyalty extends syruppay_token_PropertyMapper implements syruppay_token_claims_elements_Element
 {
     protected $id;
     protected $userActionCode;
@@ -38,11 +33,11 @@ class Loyalty extends PropertyMapper implements Element
     protected $initialAppliedAmt;
     protected $orderApplied;
     /**
-     * @var syruppay\token\claims\elements\AdditionalDiscount
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_AdditionalDiscount
      */
     protected $additionalDiscount;
     /**
-     * @var syruppay\token\claims\elements\Error
+     * @var syruppay\token\claims\elements\syruppay_token_claims_elements_Error
      */
     protected $error;
     protected $exclusiveGroupId;
@@ -140,7 +135,7 @@ class Loyalty extends PropertyMapper implements Element
     public function setBalance($balance)
     {
         if ($balance <= 0) {
-            throw new IllegalArgumentException("balance field should be bigger than 0. yours balance is : " . $balance);
+            throw new InvalidArgumentException("balance field should be bigger than 0. yours balance is : " . $balance);
         }
         $this->balance = $balance;
         return $this;
@@ -154,7 +149,7 @@ class Loyalty extends PropertyMapper implements Element
     public function setMaxApplicableAmt($maxApplicableAmt)
     {
         if ($maxApplicableAmt <= 0) {
-            throw new IllegalArgumentException("maxApplicableAmt field should be bigger than 0. yours maxApplicableAmt is : " . $maxApplicableAmt);
+            throw new InvalidArgumentException("maxApplicableAmt field should be bigger than 0. yours maxApplicableAmt is : " . $maxApplicableAmt);
         }
         $this->maxApplicableAmt = $maxApplicableAmt;
         return $this;
@@ -187,7 +182,7 @@ class Loyalty extends PropertyMapper implements Element
         return $this->additionalDiscount;
     }
 
-    public function setAdditionalDiscount(AdditionalDiscount $additionalDiscount)
+    public function setAdditionalDiscount(syruppay_token_claims_elements_AdditionalDiscount $additionalDiscount)
     {
         $this->additionalDiscount = $additionalDiscount;
         return $this;
@@ -198,7 +193,7 @@ class Loyalty extends PropertyMapper implements Element
         return $this->error;
     }
 
-    public function setError(Error $error)
+    public function setError(syruppay_token_claims_elements_Error $error)
     {
         $this->error = $error;
         return $this;
@@ -207,7 +202,7 @@ class Loyalty extends PropertyMapper implements Element
     public function validRequired()
     {
         if (!isset($this->id) || !isset($this->name) || !isset($this->subscriberId)) {
-            throw new \InvalidArgumentException("Loyalty object couldn't be with null fields id : " . $this->id . ", name : " . $this->name . ", subscriberId : " . $this->subscriberId);
+            throw new InvalidArgumentException("Loyalty object couldn't be with null fields id : " . $this->id . ", name : " . $this->name . ", subscriberId : " . $this->subscriberId);
         }
 
         if (isset($this->additionalDiscount)) {
@@ -219,10 +214,10 @@ class Loyalty extends PropertyMapper implements Element
         }
 
         if ($this->balance <= 0) {
-            throw new \InvalidArgumentException("balance field should be bigger than 0. yours balance is : " . $this->balance);
+            throw new InvalidArgumentException("balance field should be bigger than 0. yours balance is : " . $this->balance);
         }
         if ($this->maxApplicableAmt <= 0) {
-            throw new \InvalidArgumentException("maxApplicableAmt field should be bigger than 0. yours maxApplicableAmt is : " . $this->maxApplicableAmt);
+            throw new InvalidArgumentException("maxApplicableAmt field should be bigger than 0. yours maxApplicableAmt is : " . $this->maxApplicableAmt);
         }
     }
 }
