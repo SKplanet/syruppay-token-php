@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc41000a2af0f3c2e4e2d568658928fc",
-    "content-hash": "dad710370e72158c6066755054c7166e",
+    "hash": "d71887562afae4f74392901bf40d5cdc",
+    "content-hash": "9630186fded56285bf85d44198be7785",
     "packages": [
         {
             "name": "phpseclib/phpseclib",
@@ -107,20 +107,20 @@
         },
         {
             "name": "syruppay/jose",
-            "version": "v1.1.1",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/SKplanet/jose_php.git",
-                "reference": "df6666a951e674ed2c9ebdfcff8aa7e58d24d8e6"
+                "reference": "63238f5fdf252630f6db99b49d0a845d65de4c19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/SKplanet/jose_php/zipball/df6666a951e674ed2c9ebdfcff8aa7e58d24d8e6",
-                "reference": "df6666a951e674ed2c9ebdfcff8aa7e58d24d8e6",
+                "url": "https://api.github.com/repos/SKplanet/jose_php/zipball/63238f5fdf252630f6db99b49d0a845d65de4c19",
+                "reference": "63238f5fdf252630f6db99b49d0a845d65de4c19",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3",
+                "php": ">=5.2.0",
                 "phpseclib/phpseclib": "0.3.10"
             },
             "require-dev": {
@@ -129,8 +129,8 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "": "syruppay"
+                "psr-0": {
+                    "syruppay": "syruppay"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -154,7 +154,7 @@
                 "SyrupPay",
                 "syrup"
             ],
-            "time": "2016-09-22 03:15:15"
+            "time": "2017-01-18 04:11:02"
         }
     ],
     "packages-dev": [
